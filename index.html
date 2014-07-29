@@ -7,8 +7,31 @@
 <body>
 
 <canvas id="cvs" width="500" height="400"></canvas>
+<input value="hahah中文" />
+<script type="text/javascript" src="./assets/javascripts/main.js"></script>
 <script type="text/javascript">
-	
+function setTextSelected(input)
+{
+    if(input.setSelectionRange)
+    {
+        input.setSelectionRange(0, input.value.length);
+    }
+    else if(input.createTextRange)
+    {
+        var range=input.createTextRange();
+        range.collapse(true);  
+        range.moveStart('character', 0);  
+        range.moveEnd('character', input.value.length);  
+        range.select();
+    }
+    else
+    {
+        input.focus();
+    }
+}
+
+setTextSelected(document.getElementsByTagName('input')[0]);
+
 window.onload=function ()
 {
 	var cvs=document.getElementById('cvs'),
