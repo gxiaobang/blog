@@ -36,6 +36,7 @@ function createGrid( R, C, u, cvs, ctx ) {
 function init() {
 	var cvs = $selector( '#cvs' )[0],
 		ctx = cvs.getContext( '2d' ),
+		score = $selector( '#score' )[0],
 		// 设置单位大小
 		u = 20,
 		R = Math.ceil( cvs.height / u ),
@@ -45,9 +46,12 @@ function init() {
 		y = Math.ceil( random( 5, R - 5 ) ),
 		snake;
 
-	snake = new Snake( { R: R, C: C, x: x, y: y, u: u, ctx: ctx } );
-
+	snake = new Snake( { R: R, C: C, x: x, y: y, u: u, ctx: ctx, score: score } );
 	update( cvs, ctx, [function() { snake.draw() }, function() { createGrid( R, C, u, cvs, ctx ) }]);
+	
+	$selector('#btn_start')[0].onclick = function() {
+		snake.start();
+	};
 }
 // 刷新canvas
 function update( cvs, ctx, callbacks ) {
@@ -72,9 +76,16 @@ Snake.prototype = {
 		// 移动设置
 		this.beginTime = +new Date;
 		this.speed = 100;
+		// 游戏开始默认值
+		this.isOver = false;
+		this.score = 0;
 
 		this.create();
 		this.listen();
+	},
+	// 游戏开始
+	start: function() {
+		this.isStart = true;
 	},
 	// 创建Snake
 	create: function() {
@@ -153,22 +164,59 @@ Snake.prototype = {
 				this.nodes[0].r = 0;
 			}
 
-			this.eat();
+			if( this.testOver() ) {
+				this.isOver = true;
+				alert( 'Game is over. Thank you for playing.' );
+			}
+			else if( this.testEat() ) {
+				this.eat();
+			}
 		}	
 	},
+	setScore: function() {
+		this.score += 100;
+		this.options.score.innerHTML = ' ' + this.score + ' ';
+	},
+	// 游戏规则
+	rule: function() {
+		var coef = Math.floor( this.score / 1000 );
+		this.food.create( 2 + coef );
+		this.speed = 100 - coef * 20;
+	},
 	eat: function() {
-		if(this.testEat()) {
-			this.nodes.push( {} );
+		this.remove( this.food.nodes, this.eatup );
+		this.nodes.push( {} );
+		this.setScore();
+
+		if( !this.food.nodes.length ) {
+			this.rule();
 		}
+	},
+	remove: function( arr, item ) {
+		var index = arr.indexOf( item );
+
+		if( ~index ) {
+			arr.splice( index, 1 );
+		}
+
+		return index;
 	},
 	testEat: function() {
 		for( var i = 0, food; food = this.food.nodes[i]; i++ ) {
 			if( food.r == this.nodes[0].r && food.c == this.nodes[0].c ) {
-				this.food.nodes.splice( i, 1 );
-				console.log( true );
+				this.eatup = food;				
 				return true;
 			}
 		}
+		return false;
+	},
+	testOver: function(){
+		for( var i = 1; i < this.nodes.length; i++ ) {
+			if( this.nodes[0].r == this.nodes[i].r && this.nodes[0].c == this.nodes[i].c ) {
+				return true;
+			}
+		}
+
 		return false;
 	},
 	drawRect: function( c, r ) {
@@ -182,8 +230,13 @@ Snake.prototype = {
 		ctx.fill();
 		ctx.restore();
 	},
-	draw : function() {
-		this.move();
+	draw: function() {
+		if( !this.isStart ) return;
+		
+		if( !this.isOver ) {
+			// snake 移动
+			this.move();
+		}	
 
 		var i;
 		for( i = 0; i < this.nodes.length; i++ ) {
@@ -209,8 +262,9 @@ Food.prototype = {
 			this.drawFood( this.nodes[i].c, this.nodes[i].r, this.u, ctx );
 		}
 	},
-	drawFood: function( r, c, u, ctx ) {
+	drawFood: function( c, r, u, ctx ) {
 		ctx.save();
+		ctx.fillStyle = '#9999CC';
 		ctx.beginPath();
 		ctx.rect( c * u, r * u, u, u);
 		ctx.fill();
@@ -223,7 +277,7 @@ Food.prototype = {
 			this.nodes.push( this.createRandom() );
 		}
 
-		console.log( this.nodes );
+		// console.log( this.nodes );
 	},
 	// 随机创建
 	createRandom: function() {

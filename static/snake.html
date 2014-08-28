@@ -5,19 +5,41 @@
 	<title>贪吃蛇</title>
 	<script type="text/javascript" src="../assets/javascripts/snake.js"></script>
 	<style type="text/css">
-
 	body {
 		overflow: hidden;
 	}
 	canvas {
 		position: absolute;
-		left: 0; top: 0; right: 500px; bottom: 0;
+		top: 0; bottom: 0; left: 100px;
 		margin: auto;
+	}
+	.readme {
+		position: absolute;
+		top: 0; bottom: 0; left: 650px;
+		margin: auto;
+
+		width: 300px; height: 400px;
+	}
+	.readme .description {
+
 	}
 	</style>
 </head>
 <body>
 
 <canvas id="cvs" width="500" height="400"></canvas>
+
+<div class="readme">
+	<div>分数：<strong id="score"> 0 </strong></div>
+	<div class="description">
+		<h3>贪吃蛇</h3>
+		<p>
+			通过在地图上寻找食物，每吃一个食物身体会变成一节。小心不要吃到自己。
+			游戏分数越高，相应的会提高游戏难度，勇士们 Are you ready? Let's go.
+		</p>
+	</div>
+	<button id="btn_start">开始游戏</button>
+	<img src="../assets/images/20040627063556376787.gif">
+</div>
 </body>
 </html>
