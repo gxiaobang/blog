@@ -283,15 +283,16 @@ Food.prototype = {
 	createRandom: function() {
 		var c, r, i;
 
+		loop:
 		while( true ) {
 			c = random( 0, this.C - 1 ) | 0;
 			r = random( 0, this.R - 1 ) | 0;
 
 			for( i = 0; i < this.nodes.length; i++ ) {
-				if( this.nodes[i].c == c && this.nodes[i].r == r) continue;
+				if( this.nodes[i].c == c && this.nodes[i].r == r) continue loop;
 			}
 			for( i = 0; i < this.snake.nodes.length; i++ ) {
-				if( this.snake.nodes[i].c == c && this.snake.nodes[i].r == r) continue;
+				if( this.snake.nodes[i].c == c && this.snake.nodes[i].r == r) continue loop;
 			}
 
 			return { c: c, r: r };

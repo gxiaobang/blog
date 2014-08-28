@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+
+	<style type="text/css">
+
+	/*body {background:#000;}*/
+	/*#cvs {position:absolute; left:0; top:0; right:0; bottom:0; margin:auto; background:#d0f6ef;}*/
+
+	</style>
+</head>
+<body>
+
+<canvas id="cvs" width="500" height="400"></canvas>
+
+<script type="text/javascript">
+
+function captureMouse(element)
+{
+	var mouse={x: 0, y: 0};
+
+	element.addEventListener('mousemove', function (event){
+		var x=0,y=0;
+
+		event=event||window.event;
+
+		if(event.offsetX || event.offsetY)
+		{
+
+			x=event.offsetX;
+			y=event.offsetY;
+		}
+		else
+		{
+			if(event.pageX || event.pageY)
+			{
+				x=event.pageX;
+				y=event.pageY;
+			}
+			else
+			{
+				x=event.clientX+(document.body.scrollLeft||document.documentElement.scrollLeft);
+				y=event.clientX+(document.body.scrollTop||document.documentElement.scrollTop);
+			}
+
+			x-=this.offsetLeft;
+			y-=this.offsetTop;
+		}
+
+		mouse.x=x;
+		mouse.y=y;
+
+	}, false);
+
+	return mouse;
+}
+
+void function (){
+
+	var cvs=document.querySelectorAll('#cvs')[0],
+		ctx=cvs.getContext('2d'),
+		mouse=captureMouse(cvs),
+		fps=60,
+		balls=[];
+
+	
+	function Ball(x, y, r)
+	{
+		this.x=x;
+		this.y=y;
+		this.r=r;
+
+		balls.push(this);
+
+		this.draw();
+	}
+	Ball.prototype={
+		draw: function (){
+			this.anim();
+
+			ctx.save();
+			
+			var color=ctx.createRadialGradient(this.x-10, this.y-10, this.r/5, this.x+20, this.y+20, this.r+30);
+			color.addColorStop(0, '#14e2be');
+			color.addColorStop(1, '#249293');
+			ctx.fillStyle=color;
+
+			ctx.beginPath();
+
+			ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+			ctx.fill();
+			ctx.restore();
+		},
+		anim: function (){
+
+			if(this.isAnim)
+			{
+				switch(this.options.type)
+				{
+					case 'flex':
+					this.flex();
+					break;
+					case 'buffer':
+					this.buffer();
+					break;
+					default:
+					this.linear();
+					break;
+				}
+			}
+			else
+			{
+
+			}
+			
+		},
+		flex: function (){
+			var dx=mouse.x-this.x,
+				dy=mouse.y-this.y,
+				ax=dx*this.options.spring,
+				ay=dy*this.options.spring;
+
+			this.options.vx+=ax;
+			this.options.vy+=ay;
+			this.options.vy+=this.options.gravity;
+			this.options.vx*=this.options.friction;
+			this.options.vy*=this.options.friction;
+
+			this.x+=this.options.vx;
+			this.y+=this.options.vy;
+
+			this.drawLine();
+		},
+		drawLine: function (){
+			ctx.save();
+
+			ctx.lineWidth=3;
+			ctx.lineCap='round';
+
+			ctx.beginPath();
+			ctx.moveTo(this.x, this.y);
+			ctx.lineTo(mouse.x, mouse.y);
+			ctx.stroke();
+			ctx.restore();
+		},
+		animOptions: function (options){
+			this.options=options;
+
+			return this;
+		},
+		run: function (){
+
+			this.isAnim=true;
+		}
+	};
+
+	var ball=new Ball(100, 100, 30);
+	ball.animOptions({
+		// 运动类型
+		type: 'flex',
+		// 横向速度
+		vx: .5,
+		// 纵向速度
+		vy: .5,
+		// 弹力
+		spring: 0.06,
+		// 摩擦力
+		friction: 0.9,
+		// 重力
+		gravity: 4
+	}).run();
+
+
+	function update()
+	{
+		ctx.clearRect(0, 0, cvs.width, cvs.height);
+
+		var n=balls.length;
+		while(n--)
+		{
+			balls[n].draw();
+		}
+
+		setTimeout(update, 1000/60);
+	}
+
+	update();
+
+
+	function resizeCvs()
+	{
+		cvs.width=window.innerWidth;
+		cvs.height=window.innerHeight;
+	}
+
+	resizeCvs();
+	window.addEventListener('resize', resizeCvs, false);
+
+}();
+
+
+
+
+
+</script>
+
+</body>
+</html>
