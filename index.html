@@ -1,13 +1,22 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title></title>
-</head>
-<body>
+---
 
-<canvas id="cvs" width="500" height="400"></canvas>
-<link rel="stylesheet" type="text/css" href="./assets/css/main.css">
-<script type="text/javascript" src="./assets/javascripts/main.js"></script>
-</body>
-</html>
+layout: default
+
+title: 我的 Blog
+
+---
+
+<h2>{{ page.title }}</h2>
+
+<p>最新文章</p>
+
+<ul>
+
+{% for post in site.posts %}
+
+<li>{{ post.date date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">
+{{ post.title }}</a></li>
+
+{% endfor %}
+
+</ul>
