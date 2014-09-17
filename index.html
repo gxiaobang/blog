@@ -1,22 +1,15 @@
 ---
-
 layout: default
-
-title: 我的 Blog
-
+title: 关注前端，热爱生活
 ---
 
-<h2>{{ page.title }}</h2>
-
-<p>最新文章</p>
+<h2>最新文章</h2>
 
 <ul>
-
 {% for post in site.posts %}
-
-<li>{{ post.date date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">
-{{ post.title }}</a></li>
-
+	<li>
+		<span>{{ post.date | date_to_string }}</span>
+		<a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+	</li>
 {% endfor %}
-
 </ul>

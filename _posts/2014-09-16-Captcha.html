@@ -1,0 +1,17 @@
+---
+layout: default
+title: 验证码
+---
+
+<style type="text/css">
+#cvs {
+	background: #ccc;
+	cursor: pointer;
+}
+</style>
+<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/Captcha.js"></script>
+<canvas width="70" height="30" id="cvs"></canvas>
+点击刷新验证码
+<script type="text/javascript">
+new Captcha({ codeLen: 5, canvas: document.getElementById('cvs') });
+</script>

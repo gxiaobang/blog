@@ -1,0 +1,25 @@
+---
+layout: default
+title: 贪吃蛇
+---
+<style type="text/css">
+.readme {
+	width: 300px;
+	display: inline-block;
+	vertical-align: top;
+}
+</style>
+
+<canvas id="cvs" width="500" height="400"></canvas>
+<div class="readme">
+	<div>分数：<strong id="score"> 0 </strong></div>
+	<div class="description">
+		<h3>贪吃蛇</h3>
+		<p>
+			通过在地图上寻找食物，每吃一个食物身体会变长一节。小心不要吃到自己。
+			游戏分数越高，相应的会提高游戏难度，勇士们 Are you ready? Let's go.
+		</p>
+	</div>
+	<button id="btn_start">开始游戏</button>
+</div>
+<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/snake.js"></script>

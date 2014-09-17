@@ -1,1 +1,46 @@
-hahaha
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>前端功能测试</title>
+	<style type="text/css">
+
+	.hide {
+		display: none;
+	}
+	#demo {
+		width: 300px; height: 300px;
+		overflow: auto;
+	}
+	#demo div {
+		width: 3000px; height: 3000px;
+	}
+
+	.expand {
+		height: 3000px;
+	}
+	</style>
+</head>
+<body>
+
+<div id="demo">
+	<div></div>
+</div>
+<button id="btnShow">show</button>
+<button id="btnHide">hide</button>
+
+<div class="expand"></div>
+</body>
+<script type="text/javascript">
+
+btnShow.onclick = function() {
+	// demo.style.display = '';
+	demo.className = '';
+};
+btnHide.onclick = function() {
+	// demo.style.display = 'none';
+	demo.className = 'hide';
+}
+
+</script>
+</html>

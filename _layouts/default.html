@@ -1,19 +1,25 @@
 ﻿<!DOCTYPE html>
-
 <html>
-
 <head>
-
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
-<title>{{ page.title }}</title>
-
+	<meta charset="utf-8">
+	<title>{{ page.title }}</title>
+	<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/base.css">
 </head>
-
 <body>
-
-{{ content }}
-
+	<div class="top-fix">
+		<div class="container">
+			<div class="top-fix-wrap">
+				<ul class="top-fix-menu">
+					<li><a href="{{ site.baseurl }}">home</a></li>
+					<li><a href="">share</a></li>
+					<li><a href="{{ site.baseurl }}/about">about</a></li>
+					<li><a href="">rrs</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		{{ content }}
+	</div>
 </body>
-
 </html>

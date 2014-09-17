@@ -1,0 +1,47 @@
+/* reset css */
+html,body,ul,h2,h3 {
+	margin: 0;
+	padding: 0;
+}
+ul li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+
+/* 自定义 */
+body {
+	padding-top: 70px;
+}
+.top-fix {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #212121;
+	z-index: 99;
+}
+.top-fix .top-fix-wrap {
+	height: 40px;
+	float: left;
+}
+.top-fix .top-fix-menu li {
+	display: inline;
+	text-transform: uppercase;
+	margin-right: 10px;
+}
+.top-fix .top-fix-menu a {
+	color: #999;
+	font-size: 16px;
+	font-family: Arial,Helvetica Narrow;
+	line-height: 40px;
+}
+.container {
+	position: relative;
+	width: 960px;
+	margin: 0 auto;
+	padding: 0;
+}

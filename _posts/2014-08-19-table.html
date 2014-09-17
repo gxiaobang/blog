@@ -1,65 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>表头固定</title>
-</head>
+---
+layout: default
+title: 表格的thead固定
+---
 
-<style type="text/css">
-/*表格样式*/
-.table-wrap {
-	position: relative;
-}
-.table-scroll {
-	overflow: auto;
-	width: 400px; height: 300px;
-	border: 1px solid #ccc;
-}
-.table-self {
-	border-collapse: collapse;
-	margin: -1px 0 0 -1px;
-}
-.table-self td {
-	border: 1px solid #ccc;
-	padding: 6px 20px;
-	white-space: nowrap;
-}
-.table-self thead {
-	background: white;
-}
-.table-fixed {
-	position: absolute;
-	left: 1px; top: 0;
-}
-.table-fixed {
-	background: white;
-	overflow: hidden;
-}
-.table-fixed .table-fixed-thead {
-	
-}
-.table-fixed .table-fixed-thead span {
-	display: inline-block;
-	float: left;
-	border: 1px solid #ccc; border-left: 0;
-	padding: 6px 20px;
-}
-
-/* 左右分栏 */
-.layout {
-	margin: 20px;
-}
-.layout-left {
-	float: left;
-}
-.layout-right {
-	float: left;
-	padding:20px;
-}
-</style>
-<body>
-
-<div>
+<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/table.css">
 <div class="layout">
 	<div class="layout-left">
 		<div class="table-wrap">
@@ -189,15 +133,12 @@
 	<div class="layout-right">
 		<h3>表头固定</h3>
 		<p>
-			兼容ie浏览器，滚动滚动条时，固定表头不会出现明显的闪动。
+			css中固定样式(position: fixed)是只是相对于window做固定, <br>
+			纯css解决不了，只能用绝对定位外加js控制固定列的位置。<br>
+			最后铛铛，效果如右……
 		</p>
 	</div>
 </div>
-</div>
-
-</body>
-</html>
-
 <script type="text/javascript">
 // 选择器
 function $selector( node, context ) {
