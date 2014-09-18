@@ -1,0 +1,72 @@
+/* reset css */
+html,body,ul,h2,h3,p {
+	margin: 0;
+	padding: 0;
+}
+ul li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+
+/* 自定义 */
+body {
+	padding-top: 70px;
+}
+.container {
+	position: relative;
+	width: 960px;
+	margin: 0 auto;
+	padding: 0;
+}
+.top-fix {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #212121;
+	z-index: 99;
+}
+.top-fix .top-fix-wrap {
+	height: 40px;
+	float: left;
+}
+.top-fix .top-fix-menu li {
+	display: inline;
+	text-transform: uppercase;
+	margin-right: 10px;
+}
+.top-fix .top-fix-menu a {
+	color: #999;
+	font-size: 16px;
+	font-family: Arial,Helvetica Narrow;
+	line-height: 40px;
+	/* 过滤 */
+	-webkit-transition: all .5s;
+	-moz-transition: all .5s;
+	-ms-transition: all .5s;
+	transition: all .5s;
+}
+.top-fix .top-fix-menu a:hover {
+	/*color: rgba(0,0,0,0);*/
+	text-shadow: 0 0 10px #fff;
+}
+
+
+/* 块文本 */
+pre {
+	display: block;
+	line-height: 18px;
+	background: #F5F5F5;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: 4px;
+	white-space: break-all;
+	word-wrap: break-word;
+}
+pre code {
+	font-family: Menlo,Monaco,"Courier New",monospace;
+	color: #333;
+}
