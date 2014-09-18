@@ -1,3 +1,8 @@
+/**
+ * 生成验证码 Captcha
+ * author: bang
+ * date: 2014-09-16
+ */
 ;(function (global) { 
 
 // 获取随机数
