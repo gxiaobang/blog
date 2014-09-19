@@ -1,5 +1,5 @@
 /* reset css */
-html,body,ul,h2,h3,p {
+html,body,ul,h2,h3,h4,p {
 	margin: 0;
 	padding: 0;
 }
@@ -15,6 +15,8 @@ a {
 /* 自定义 */
 body {
 	padding-top: 70px;
+	color: #444;
+	background: #F2F2F2;
 }
 .container {
 	position: relative;
@@ -69,4 +71,15 @@ pre {
 pre code {
 	font-family: Menlo,Monaco,"Courier New",monospace;
 	color: #333;
+}
+
+/* 清除浮动 */
+.clearfix {
+	zoom: 1;
+}
+.clearfix:after, {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
 }

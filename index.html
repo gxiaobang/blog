@@ -3,13 +3,17 @@ layout: default
 title: 关注前端，热爱生活
 ---
 
-<h2>最新文章</h2>
-
-<ul>
-{% for post in site.posts %}
-	<li>
-		<span>{{ post.date | date_to_string }}</span>
-		<a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-	</li>
-{% endfor %}
-</ul>
+<h3>文章列表</h3>
+<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/share.css">
+<div class="share-list clearfix">
+	{% for post in site.posts %}
+		<article class="share-item">
+			<h4>
+				<a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+			</h4>
+			<img src="">
+			<div>{{ post.tags }}</div>
+			<span>{{ post.date | date:"%Y-%m-%d" }}</span>
+		</article>
+	{% endfor %}
+</div>
