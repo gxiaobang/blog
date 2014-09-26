@@ -57,6 +57,27 @@ body {
 	text-shadow: 0 0 10px #fff;
 }
 
+/* 分享页面css */
+.share-list {
+
+}
+.share-list .share-item {
+	margin-right: 20px;
+	margin-bottom: 30px;
+	float: left;
+	width: 300px;
+	height: 260px;
+	background: #fff;
+}
+.share-list .share-item img {
+	margin: 6px 10px;
+	width: 280px;
+	height: 200px;
+}
+.share-list .share-item .share-item-date {
+	float: right;
+}
+
 
 /* 块文本 */
 pre {
@@ -77,7 +98,7 @@ pre code {
 .clearfix {
 	zoom: 1;
 }
-.clearfix:after, {
+.clearfix:after {
 	content: "";
 	display: block;
 	height: 0;

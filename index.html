@@ -8,12 +8,11 @@ title: 关注前端，热爱生活
 <div class="share-list clearfix">
 	{% for post in site.posts %}
 		<article class="share-item">
-			<h4>
-				<a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-			</h4>
-			<img src="">
-			<div>{{ post.tags }}</div>
-			<span>{{ post.date | date:"%Y-%m-%d" }}</span>
+			<a href="{{ site.baseurl }}{{ post.url }}">
+			<h4>{{ post.title }}</h4>
+			<img src="{{ site.baseurl }}/assets/images/{{ post.imgurl }}">
+			</a>
+			<span class="share-item-date">{{ post.date | date:"%Y-%m-%d" }}</span>
 		</article>
 	{% endfor %}
 </div>

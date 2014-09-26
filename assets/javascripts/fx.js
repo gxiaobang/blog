@@ -5,7 +5,7 @@
  * versions: 1.0
  */
 
-;(function( global ) {
+;(function(global) {
 
 var FPS = 60,
     DOC = document,
@@ -191,4 +191,4 @@ Fx.prototype = {
 
 global.Fx = Fx;
 
-})( this );
+})(this);

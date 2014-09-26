@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+	ul li {
+		list-style: none;
+	}
+
+	.nav {
+	}
+	.nav li {
+		position: relative;
+		float: left;
+		padding: 10px;
+	}
+	.nav li:after {
+		content: "";
+
+		position: absolute;
+		left: 50%;
+		right: 50%;
+		bottom: 2px;
+		
+		display: block;
+		height: 2px;
+		background: #1FAEFF;
+		/* 持续时间 动画方式 延时 */
+		-webkit-transition: 0.2s ease-in 0s;
+
+		opacity: 0;
+	}
+	.nav li:hover:after {
+		left: 6px;
+		right: 6px;
+		opacity: 1;
+	}
+	</style>
+</head>
+<body>
+<ul class="nav">
+	<li>
+		<a href="javascript:void(0);">主页</a>
+	</li>
+	<li>
+		<a href="javascript:void(0);">作品</a>
+	</li>
+	<li>
+		<a href="javascript:void(0);">关于我们</a>
+	</li>
+	<li>
+		<a href="javascript:void(0);">联系我们</a>
+	</li>
+</ul>
+</body>
+</html>
