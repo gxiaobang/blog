@@ -58,7 +58,17 @@ function setStyle(node, attr, value) {
     }
 }
 
-// function
+function haha(a) {
+    switch (a) {
+        case 'haha':
+            console.log('haha');
+            break;
+        case 'bbb':
+            console.log('bbb');
+            break;
+    }
+}
+
 global.Animate = Animate;
 
 })(this);

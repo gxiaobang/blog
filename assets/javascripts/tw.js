@@ -414,3 +414,94 @@ else if (name === 'bcd') {
 
 
 })( this );
+
+// 定义类
+class Point1 {
+    // 构造函数
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    // method
+    print1() {
+        return 'x: ' + this.x + ', y: ' + this.y;
+    }
+}
+// 继承
+class Point2 extends Point1 {
+    constructor(x, y, z) {
+        super(x, y);
+        this.z = z;
+    }
+    print2() {
+        return 'x: ' + this.x + ', y: ' + this.y + ', z:' + this.z;
+    }
+}
+
+p1.print1();    // x: 1, y: 2
+p2.print1();    // x: 1, y: 2
+p2.print2();    // x: 1, y: 2, z: 3
+
+// 为目标对象赋值
+function assign() {
+    var args = arguments,
+        result;
+    if (Object.assign) {
+        result = Object.assign.apply(this, args);
+    }
+    else {
+        result = {};
+        for (var i = 0; arg = args[i]; i++) {
+            for (var key in arg) {
+                if (arg.hasOwnProperty(key)) {
+                    result[key] = arg[key];
+                }
+            }
+        }
+    }
+    return result;
+}
+// 声明类
+function Klass(options, parent) {
+    var Klass;
+    
+    // 父类
+    if (parent) {
+        options = assign(parent.prototype, options);
+        options.parent = function() {
+            parent.prototype.construct.apply(this, arguments);
+        };
+    }
+
+    Klass = options.construct;
+    Klass.prototype = options;
+    // 修正实例指向
+    Klass.prototype.constructor = Klass;
+    return Klass;
+}
+var Point1 = Klass({
+    // 构造函数
+    construct: function(x, y) {
+        this.x = x;
+        this.y = y;
+    },
+    print1: function() {
+        return 'x: ' + this.x + ', y: ' + this.y;
+    }
+});
+var Point2 = Klass({
+    construct: function(x, y, z) {
+        this.parent(x, y);
+        this.z = z;
+    },
+    print2: function() {
+        return 'x: ' + this.x + ', y: ' + this.y + ', z:' + this.z;
+    }
+}, Point1);
+
+var p1 = new Point1(1, 2);
+var p2 = new Point2(1, 2, 3);
+
+p1.print1();    // x: 1, y: 2
+p2.print1();    // x: 1, y: 2
+p2.print2();    // x: 1, y: 2, z: 3

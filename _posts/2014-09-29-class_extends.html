@@ -1,0 +1,128 @@
+---
+layout: default
+title: 类与继承
+---
+
+<p>
+	ECMAScript5的javascript是没有class，可以用构造函数外加prototype的方式来定义。
+</p>
+<pre>
+	<code>
+	// 构造函数
+	function Person(name) {
+		this.name = name;
+	}
+	Person.prototype.sayName = function() {
+		return 'name' + this.name;
+	};
+	var me = new Person('bang');
+	me.sayName();	// 返回 bang
+	</code>
+</pre>
+<p>
+	ECMAScipt6新添加的内容，其中class使javascript真正走向面对对象的道路。
+</p>
+<pre>
+	<code>
+	// 定义类
+	class Point1 {
+	    // 构造函数
+	    constructor(x, y) {
+	        this.x = x;
+	        this.y = y;
+	    }
+	    // method
+	    print1() {
+	        return 'x: ' + this.x + ', y: ' + this.y;
+	    }
+	}
+	// 继承
+	class Point2 extends Point1 {
+	    constructor(x, y, z) {
+	        super(x, y);
+	        this.z = z;
+	    }
+	    print2() {
+	        return 'x: ' + this.x + ', y: ' + this.y + ', z:' + this.z;
+	    }
+	}
+
+	var p1 = new Point1(1, 2);
+	var p2 = new Point2(1, 2, 3);
+
+	p1.print1();    // x: 1, y: 2
+	p2.print1();    // x: 1, y: 2
+	p2.print2();    // x: 1, y: 2, z: 3
+	</code>
+</pre>
+
+<p>
+	看起来很美，不过现在的浏览器普遍还未支持，预计还要等一段时间。还是用原来的，经过简单封装之后(Klass)，定义class也是有模有样的。
+</p>
+<pre>
+	<code>
+	// 为目标对象赋值
+	function assign() {
+	    var args = arguments,
+	        result;
+	    if (Object.assign) {
+	        result = Object.assign.apply(this, args);
+	    }
+	    else {
+	        result = {};
+	        for (var i = 0; arg = args[i]; i++) {
+	            for (var key in arg) {
+	                if (arg.hasOwnProperty(key)) {
+	                    result[key] = arg[key];
+	                }
+	            }
+	        }
+	    }
+	    return result;
+	}
+	// 声明类
+	function Klass(options, parent) {
+	    var Klass;
+	    
+	    // 父类
+	    if (parent) {
+	        options = assign(parent.prototype, options);
+	        options.parent = function() {
+	            parent.prototype.construct.apply(this, arguments);
+	        };
+	    }
+
+	    Klass = options.construct;
+	    Klass.prototype = options;
+	    // 修正实例指向
+	    Klass.prototype.constructor = Klass;
+	    return Klass;
+	}
+	var Point1 = Klass({
+	    // 构造函数
+	    construct: function(x, y) {
+	        this.x = x;
+	        this.y = y;
+	    },
+	    print1: function() {
+	        return 'x: ' + this.x + ', y: ' + this.y;
+	    }
+	});
+	var Point2 = Klass({
+	    construct: function(x, y, z) {
+	        this.parent(x, y);
+	        this.z = z;
+	    },
+	    print2: function() {
+	        return 'x: ' + this.x + ', y: ' + this.y + ', z:' + this.z;
+	    }
+	}, Point1);
+
+	var p1 = new Point1(1, 2);
+	var p2 = new Point2(1, 2, 3);
+
+	p1.print1();    // x: 1, y: 2
+	p2.print1();    // x: 1, y: 2
+	p2.print2();    // x: 1, y: 2, z: 3
+	</code>
+</pre>
