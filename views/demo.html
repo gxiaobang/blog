@@ -40,9 +40,30 @@
 		right: 6px;
 		opacity: 1;
 	}
+
+	.table {
+		display: table;
+		border-collapse: collapse;
+	}
+	.table .row {
+		display: table-row;
+	}
+	.table .row .cell {
+		display: table-cell;
+		width: 30px;
+		padding: 5px;
+		border: 1px solid #ccc;
+		
+		/* ie7- */
+		*display: inline-block;
+		*float: left;
+		/* end ie7- */
+	}
 	</style>
 </head>
 <body>
+
+<button class=""></button>
 <ul class="nav">
 	<li>
 		<a href="javascript:void(0);">主页</a>
@@ -57,5 +78,18 @@
 		<a href="javascript:void(0);">联系我们</a>
 	</li>
 </ul>
+
+<div class="table">
+	<div class="row">
+		<div class="cell">1</div>
+		<div class="cell">2</div>
+		<div class="cell">3</div>
+		<div class="cell">4</div>
+		<div class="cell">5</div>
+		<div class="cell">6</div>
+		<div class="cell">7</div>
+	</div>
+</div>
 </body>
 </html>
+

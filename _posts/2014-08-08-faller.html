@@ -1,16 +1,17 @@
 ---
 layout: default
-title: 小球落体
-imgurl: faller.jpg
+title: 会做自由落体的小球
 ---
+
+<p>
+    flash的as可以完成各种动画效果。
+</p>
 
 <h3>拖动小球，然后释放</h3>
 <canvas id="cvs" width="500" height="400"></canvas>
 <script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/tween.js"></script>
 <script type="text/javascript">
-
 void function (){
-
     var dataFns=[];
     function rad(angle)
     {
@@ -237,5 +238,4 @@ void function (){
         }
     });
 }();
-
 </script>

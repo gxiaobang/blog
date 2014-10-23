@@ -1,8 +1,11 @@
 ---
 layout: default
-title: 表格的thead固定
-imgurl: table.jpg
+title: 倔强的表格固定
 ---
+
+<p>
+	想到固定就想到css属性(position: fixed)，相对于window固定，而现在需求相对于包裹表格的element固定，显然fixed并不适用。单纯的css解决不了，只能用绝对定位外加js控制，根据滚动条的距离来设置固定位置。
+</p>
 
 <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/table.css">
 <div class="layout">
@@ -130,14 +133,6 @@ imgurl: table.jpg
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="layout-right">
-		<h3>表头固定</h3>
-		<p>
-			css中固定样式(position: fixed)是只是相对于window做固定, <br>
-			纯css解决不了，只能用绝对定位外加js控制固定列的位置。<br>
-			最后铛铛，效果如右……
-		</p>
 	</div>
 </div>
 <script type="text/javascript">

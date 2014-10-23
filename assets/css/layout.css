@@ -1,3 +1,10 @@
+/* font */
+@font-face {
+    font-family: "octicons";
+    src: url(/assets/octicons/octicons-192e5fbb927be7cdb8bdfa0ecb98d3574bd395e58f9d00e5dcdfce5bc9660ac0.woff);
+}
+/* end font */
+
 /* reset css */
 html,body,ul,h2,h3,h4,p {
 	margin: 0;
@@ -8,91 +15,135 @@ ul li {
 }
 
 a {
+	color: inherit;
 	text-decoration: none;
 }
-
+a:active,a:visited {
+	color: inherit;
+}
 
 /* 自定义 */
 body {
-	padding-top: 70px;
-	color: #444;
-	background: #F2F2F2;
+	padding-top: 60px;
+	color: #636365;
+	background: #F7F7F7;
+	font-family: "微软雅黑",Helvetica,"Heiti SC",sans-serif;
 }
-.container {
-	position: relative;
-	width: 960px;
-	margin: 0 auto;
-	padding: 0;
-}
-.top-fix {
+
+/* header */
+#header {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
-	background: #212121;
+	background: #fff;
+	box-shadow: 0 0 6px #ccc;
 	z-index: 99;
 }
-.top-fix .top-fix-wrap {
-	height: 40px;
-	float: left;
-}
-.top-fix .top-fix-menu li {
-	display: inline;
-	text-transform: uppercase;
-	margin-right: 10px;
-}
-.top-fix .top-fix-menu a {
-	color: #999;
-	font-size: 16px;
-	font-family: Arial,Helvetica Narrow;
+#header .header-wrap {
+	width: 90%;
+	margin: 0 auto;
+
 	line-height: 40px;
-	/* 过滤 */
-	-webkit-transition: all .5s;
-	-moz-transition: all .5s;
-	-ms-transition: all .5s;
-	transition: all .5s;
 }
-.top-fix .top-fix-menu a:hover {
-	/*color: rgba(0,0,0,0);*/
-	text-shadow: 0 0 10px #fff;
-}
+#header .header-menu li {
+	position: relative;
+	display: inline;
+	margin-right: 10px;
 
-/* 分享页面css */
-.share-list {
-
+	text-transform: uppercase;
+	color: #999;
+	font-size: 20px;
+	/*font-family: Arial,Helvetica Narrow;*/
+	line-height: 40px;
 }
-.share-list .share-item {
-	margin-right: 20px;
-	margin-bottom: 30px;
+#header .header-menu li:after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	right: 50%;
+	bottom: -6px;
+	
+	display: block;
+	height: 2px;
+	background: #1FAEFF;
+	/* 持续时间 动画方式 延时 */
+	-webkit-transition: 0.2s ease-in 0s;
+	opacity: 0;
+}
+#header .header-menu li:hover:after {
+	left: 0;
+	right: 0;
+	opacity: 1;
+}
+/* end header */
+
+/* main */
+#main {
+	width: 80%;
+	margin: 0 auto;
+}
+/* content */
+#content article {
+	margin: 12px 6px;
+}
+#content .date {
 	float: left;
-	width: 300px;
-	height: 260px;
-	background: #fff;
 }
-.share-list .share-item img {
-	margin: 6px 10px;
-	width: 280px;
-	height: 200px;
+#content .more {
+	/*color: red;*/
 }
-.share-list .share-item .share-item-date {
-	float: right;
+/* end content */
+/* end main */
+
+/* footer */
+#footer {
+	background: #333;
+	color: #ccc;
 }
+#footer .footer-wrap {
+	width: 86%;
+	height: 46px;
+	margin: 0 auto;
+	line-height: 46px;
+	text-align: center;
+}
+
+#footer .octicon-mark-github {
+	font-family: octicons;
+	transition: color .2s;
+}
+.octicon-mark-github:hover {
+	color: #4183c4;
+}
+.octicon-mark-github:before {
+	content: "github.com";
+	font-size: 30px;
+	font-size: 20px\9;
+}
+:root .octicon-mark-github:before {
+	content: "\f00a";
+}
+/* end footer */
 
 
 /* 块文本 */
 pre {
 	display: block;
-	line-height: 18px;
+	line-height: 20px;
 	background: #F5F5F5;
 	border: 1px solid rgba(0, 0, 0, 0.15);
 	border-radius: 4px;
+	overflow: hidden;
 	white-space: break-all;
 	word-wrap: break-word;
+	box-shadow: 0 0 6px #ccc;
 }
 pre code {
-	font-family: Menlo,Monaco,"Courier New",monospace;
+	font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 	color: #333;
 }
+/* end 块文本 */
 
 /* 清除浮动 */
 .clearfix {
@@ -104,3 +155,20 @@ pre code {
 	height: 0;
 	clear: both;
 }
+/* end 清除浮动 */
+
+/* 响应式 */
+@media (min-width: 310px) and (max-width: 360px) {
+	#header .header-menu li {
+		margin-right: 6px;
+		font-size: 18px;
+	}
+}
+@media (max-width: 310px) {
+	#header .header-menu li {
+		margin-right: 2px;
+		font-size: 16px;
+	}
+}
+/* end 响应式 */
+

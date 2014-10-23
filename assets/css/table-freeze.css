@@ -1,0 +1,11 @@
+.table-freeze-wrap table {
+	border-collapse: collapse;
+	white-space: nowrap;
+	background: #fff;
+}
+.table-freeze-wrap table td {
+	border: 1px solid #ccc;
+	padding: 4px 10px;
+}
+
+.table-freeze-wrap table thead {}

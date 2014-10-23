@@ -1,11 +1,14 @@
 ---
 layout: default
-title: 类与继承
+title: 那些年我们用过的JavaScript类与继承
 ---
 
 <p>
-	ECMAScript5的javascript是没有class，可以用构造函数外加prototype的方式来定义。
+	JavaScript并非完全面对对象，它没有class用来定义类，但也可以实现class相同的功能，就是用构造函数，自用强大的prototype来定义构造函数方法。查看以下示例:
 </p>
+
+<!-- 摘要 -->
+
 <pre>
 	<code>
 	// 构造函数
@@ -13,7 +16,7 @@ title: 类与继承
 		this.name = name;
 	}
 	Person.prototype.sayName = function() {
-		return 'name' + this.name;
+		return this.name;
 	};
 	var me = new Person('bang');
 	me.sayName();	// 返回 bang

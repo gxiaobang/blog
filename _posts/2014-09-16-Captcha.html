@@ -1,8 +1,13 @@
 ---
 layout: default
-title: 验证码
-imgurl: captcha.jpg
+title: 前端验证码
 ---
+
+<p>
+	验证码主要是用来防止恶意提交到后台，后台语言会有一个绘制条形码的绘图api, 绘制完成后会生成一张图片，
+	前端工程师只要通过图片路径就可以引用到图片。html5有一个新的绘图标签非常强大，可以绘制各种图形，也可以变换各种姿势（旋转、倾斜、扭曲等等），文字也是可以。
+</p>
+
 
 <style type="text/css">
 #cvs {
@@ -11,8 +16,20 @@ imgurl: captcha.jpg
 }
 </style>
 <script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/captcha.js"></script>
-<canvas width="70" height="30" id="cvs"></canvas>
-点击刷新验证码
+<p><a href="javascript:;" id="btn_blank">直戳此处，查看demo</a></p>
 <script type="text/javascript">
-new Captcha({ codeLen: 5, canvas: document.getElementById('cvs') });
+btn_blank.onclick = function() {
+	var newWin = window.open();
+	newWin.document.write('\
+		<p>\
+			<a href="javascript:void(0);">\
+				<canvas width="70" height="30" id="cvs"></canvas>刷新\
+			</a>\
+		</p>\
+		<script type="text/javascript">\
+			new Captcha({ codeLen: 5, canvas: document.getElementById(\'cvs\') });\
+		<\/script>\
+	');
+};
 </script>
+

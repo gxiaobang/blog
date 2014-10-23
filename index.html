@@ -1,18 +1,24 @@
 ---
 layout: default
-title: 关注前端，热爱生活
+title: 热爱生活|关注用户体验
 ---
 
-<h3>文章列表</h3>
 <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/share.css">
-<div class="share-list clearfix">
+<div id="content">
 	{% for post in site.posts %}
-		<article class="share-item">
-			<a href="{{ site.baseurl }}{{ post.url }}">
-			<h4>{{ post.title }}</h4>
-			<img src="{{ site.baseurl }}/assets/images/{{ post.imgurl }}">
-			</a>
-			<span class="share-item-date">{{ post.date | date:"%Y-%m-%d" }}</span>
+		<article>
+			<header class="entry-header">
+				<h3 class="entry-title">
+					<a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+				</h3>
+				<div class="entry-meta">
+					<time class="entry-date">{{ post.date | date_to_string }}</time>
+				</div>
+			</header>
+			<div class="entry-summary">
+				<div>{{ post.excerpt }}</div>
+				<a href="{{ site.baseurl }}{{ post.url }}" class="more">阅读全文 >></a>
+			</div>
 		</article>
 	{% endfor %}
 </div>

@@ -1,8 +1,11 @@
 ---
 layout: default
-title: 字体模糊
-imgurl: shadow.jpg
+title: 小试css3，字体模糊
 ---
+
+<p>
+	css3添加了不少炫酷的功能，比如2d/3d变换，这个可以看到各种姿势，听起来挺邪恶的，还有渐变、字体阴影、盒子阴影。
+</p>
 
 <style type="text/css">
 .foggy {
@@ -19,24 +22,24 @@ imgurl: shadow.jpg
 	transition: all .5s;
 }
 .foggy:hover {
-	color: rgba(0,0,0,0);
+	color: transparent;
 	text-shadow: 0 0 6px #000;
 	box-shadow: 0 0 16px #ccc;
 }
 </style>
 
+<h3>效果一：字体模糊</h3>
+<pre>
+	<code>
+	/* css */
+	/* 字体阴影 */
+	text-shadow: 0 0 6px #000;
+	/* 颜色透明 */
+	color: rgba(0,0,0,0);
+	</code>
+</pre>
 <div class="foggy">
 	<p>
 		鼠标移入，试试。
 	</p>
 </div>
-
-<pre>
-	<code>
-		字体模糊可以用滤镜(filter)实现，这里用了一个小技巧，
-		首先加上字体阴影，然后把字体颜色变透明，如下
-
-			text-shadow: 0 0 6px #000;
-			color: rgba(0,0,0,0);
-	</code>
-</pre>
