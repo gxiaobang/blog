@@ -16,20 +16,9 @@ title: 前端验证码
 }
 </style>
 <script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/captcha.js"></script>
-<p><a href="javascript:;" id="btn_blank">直戳此处，查看demo</a></p>
+<p>
+	<canvas width="70" height="30" id="cvs"></canvas>
+</p>
 <script type="text/javascript">
-btn_blank.onclick = function() {
-	var newWin = window.open();
-	newWin.document.write('\
-		<p>\
-			<a href="javascript:void(0);">\
-				<canvas width="70" height="30" id="cvs"></canvas>刷新\
-			</a>\
-		</p>\
-		<script type="text/javascript">\
-			new Captcha({ codeLen: 5, canvas: document.getElementById(\'cvs\') });\
-		<\/script>\
-	');
-};
+	new Captcha({ codeLen: 5, canvas: document.getElementById('cvs') });
 </script>
-

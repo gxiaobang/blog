@@ -1,7 +1,7 @@
 /* font */
 @font-face {
     font-family: "octicons";
-    src: url(/blog/assets/octicons/octicons-192e5fbb927be7cdb8bdfa0ecb98d3574bd395e58f9d00e5dcdfce5bc9660ac0.woff);
+    src: url(/assets/octicons/octicons-192e5fbb927be7cdb8bdfa0ecb98d3574bd395e58f9d00e5dcdfce5bc9660ac0.woff);
 }
 /* end font */
 
@@ -24,7 +24,6 @@ a:active,a:visited {
 
 /* 自定义 */
 body {
-	padding-top: 60px;
 	color: #636365;
 	background: #F7F7F7;
 	font-family: "微软雅黑",Helvetica,"Heiti SC",sans-serif;
@@ -43,8 +42,6 @@ body {
 #header .header-wrap {
 	width: 90%;
 	margin: 0 auto;
-
-	line-height: 40px;
 }
 #header .header-menu li {
 	position: relative;
@@ -62,7 +59,7 @@ body {
 	position: absolute;
 	left: 50%;
 	right: 50%;
-	bottom: -6px;
+	bottom: -2px;
 	
 	display: block;
 	height: 2px;
@@ -81,11 +78,11 @@ body {
 /* main */
 #main {
 	width: 80%;
-	margin: 0 auto;
+	margin: 60px auto;
 }
 /* content */
 #content article {
-	margin: 12px 6px;
+	margin: 1.2em .4em;
 }
 #content .date {
 	float: left;
@@ -158,17 +155,17 @@ pre code {
 /* end 清除浮动 */
 
 /* 响应式 */
-@media (min-width: 310px) and (max-width: 360px) {
+@media (max-width: 380px) {
 	#header .header-menu li {
 		margin-right: 6px;
 		font-size: 18px;
 	}
 }
-@media (max-width: 310px) {
+/*@media (max-width: 310px) {
 	#header .header-menu li {
 		margin-right: 2px;
 		font-size: 16px;
 	}
-}
+}*/
 /* end 响应式 */
 
