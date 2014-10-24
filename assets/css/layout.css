@@ -82,7 +82,7 @@ body {
 }
 /* content */
 #content article {
-	margin: 1.2em .4em;
+	margin: 20px 6px;
 }
 #content .date {
 	float: left;
@@ -101,6 +101,7 @@ body {
 #footer .footer-wrap {
 	width: 86%;
 	height: 46px;
+	overflow: hidden;
 	margin: 0 auto;
 	line-height: 46px;
 	text-align: center;
@@ -115,11 +116,10 @@ body {
 }
 .octicon-mark-github:before {
 	content: "github.com";
-	font-size: 30px;
-	font-size: 20px\9;
 }
 :root .octicon-mark-github:before {
 	content: "\f00a";
+	font-size: 30px;
 }
 /* end footer */
 

@@ -3,21 +3,19 @@
 <head>
 	<meta charset="utf-8">
 	<title>{{ page.title }}</title>
-	<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/layout.css">
 	<!--[if lte IE 8]>
 	<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/html5shiv.min.js"></script>
 	<![endif]-->
-	<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/tw.js"></script>
+	<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/tw-new.js"></script>
+	<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/main.js"></script>
 </head>
 <body>
 	{% include header.html %}
-
 	<div id="main">
 		{{ content }}
 	</div>
-	<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/code.js"></script>
-	
 	{% include footer.html %}
 </body>
 </html>
