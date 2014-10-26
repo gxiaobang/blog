@@ -3,12 +3,37 @@ layout: default
 title: 会做自由落体的小球
 ---
 
-<p>
-    flash的as可以完成各种动画效果。
-</p>
+<p>拖动小球，然后释放</p>
 
-<h3>拖动小球，然后释放</h3>
-<canvas id="cvs" width="500" height="400"></canvas>
+<style type="text/css">
+#main {
+    position: relative;
+}
+.ball {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    margin: auto;
+
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+
+    background: -webkit-radial-gradient(#7ca5e2 -20px, #3855e6);
+    box-shadow: 0 10px 16px;
+
+    cursor: move;
+}
+</style>
+<div class="ball"></div>
+<script type="text/javascript">
+(function() {
+var ball = tw.selectorAll('.ball')[0];
+
+})();
+</script>
+<!-- <canvas id="cvs" width="500" height="400"></canvas>
 <script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/tween.js"></script>
 <script type="text/javascript">
 void function (){
@@ -238,4 +263,4 @@ void function (){
         }
     });
 }();
-</script>
+</script> -->
