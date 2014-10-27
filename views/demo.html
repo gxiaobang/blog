@@ -90,6 +90,23 @@
 		<div class="cell">7</div>
 	</div>
 </div>
+<input value="text" readonly>
+<select readonly id="sel">
+	<option>1</option>
+	<option>2</option>
+	<option>3</option>
+	<option>4</option>
+	<option>5</option>
+</select>
+<script type="text/javascript">
+sel.onfocus = function() {
+	if (this.hasAttribute('readonly')) {
+		setTimeout(function() {
+			sel.blur();
+		});
+	}
+}
+</script>
 </body>
 </html>
 

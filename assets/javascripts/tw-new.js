@@ -64,29 +64,29 @@ function insertHTML(el, where, html) {
 }
 
 // 获取node
-function selectorAll(selector, content) {
+function selectorAll(selector, context) {
 	if (document.querySelectorAll) {
-		selectorAll = function(selector, content) {
-			return (content || document).querySelectorAll(selector);
+		selectorAll = function(selector, context) {
+			return (context || document).querySelectorAll(selector);
 		};
 	}
 	else if(global.JQuery) {
 		(function($) {
 			selectorAll = function() {
-				return $(selector, content).get();
+				return $(selector, context).get();
 			};
 		})(JQuery);
 	}
 	else {
-		selectorAll = function(selector, content) {
-			return [document.getElementById(selector.substring(1))];
+		selectorAll = function(selector, context) {
+			return new Sizzle(selector, context);
 		};
 	}
-	return selectorAll(selector, content);
+	return selectorAll(selector, context);
 }
 // 获取文本
 function getText(elem) {
-	return elem.textContext || elem.innerText;
+	return elem.textContent || elem.innerText;
 }
 
 // 事件绑定
@@ -149,7 +149,7 @@ function domReady(fn) {
 		document.attachEvent('onload', handler);
 	}
 }
-
+// 目标添加对象
 function assign() {
 	var args = arguments,
 		result;
@@ -186,7 +186,61 @@ function Klass(options, parent) {
 	Klass.prototype.constructor = Klass;
 	return Klass;
 }
+// getBoundingClientRect
+function getClientRect(elem) {
+	if (elem.getBoundingClientRect) {
+		return elem.getBoundingClientRect();
+	}
+	else {
+		var rect = { top: 0, left: 0, bottom: 0, right: 0, width: 0, height: 0 };
+		rect.width = elem.offsetWidth;
+		rect.height = elem.offsetHeight;
+		rect.top = getTop(elem);
+		rect.left = getLeft(elem);
+		rect.right = rect.width + rect.left;
+		rect.bottom = rect.height + rect.top;
+		return rect;
+	}
+}
+// 拖动
+function draggable(elem, fns) {
+	var isPress = false,
+		rect = getClientRect(elem.offsetParent),
+		draggbegin,
+		dragging,
+		draggend;
+		
 
+	if (!fns) fns = {};
+	dragbegin = function(event) {
+		event = event || window.event;
+
+		isPress = true;
+		fns.begin && fns.begin.call(this);
+	};
+	dragging = function(event) {
+		var x, y;
+		if (isPress) {
+			event = event || window.event;
+			x = event.clientX - rect.left;
+			y = event.clientY - rect.top;
+			elem.style.left = x + 'px';
+			elem.style.top = y + 'px';
+			fns.move && fns.move.call(this, x, y);
+		}
+	};
+	dragend = function() {
+		if (isPress) {
+			isPress = false;
+			fns.end && fns.end.call(this);
+		}
+	};
+	tw.addEvent(elem, 'mousedown', dragbegin);
+	tw.addEvent(document, 'mousemove', dragging);
+	tw.addEvent(document, 'mouseup', dragend);
+}
+
+// 原生对象自定义方法
 if (!Array.prototype.forEach) {
 	Array.prototype.forEach = function(fn) {
 		var i, result;
@@ -201,11 +255,12 @@ if (!Array.prototype.forEach) {
 tw.insertHTML = insertHTML;
 tw.parseHTML = parseHTML;
 tw.selectorAll = selectorAll;
-tw.on = addEvent;
-tw.off = removeEvent;
+tw.addEvent = addEvent;
+tw.removeEvent = removeEvent;
 tw.getText = getText;
 tw.domReady = domReady;
 tw.Klass = Klass;
+tw.draggable = draggable;
 
 global.tw = tw;
 })(this);

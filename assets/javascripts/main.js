@@ -20,14 +20,30 @@
 			codes[i].innerHTML = traTab(codes[i].innerHTML);
 		}
 	}
+
+	// 当前页menu
+	function makeMenuActive() {
+		var header_menu = tw.selectorAll('#header_menu')[0],
+			posi = header_menu.getAttribute('data-posi'),
+			menu_li, i;
+
+		for (i = 0; menu_li = header_menu.children[i]; i++) {
+			if (tw.getText(menu_li).toLowerCase() === posi) {
+				menu_li.className = 'active';
+				break;
+			}
+		}
+	}
 	tw.domReady(function() {
 		main = tw.selectorAll('#main')[0];
-		tw.on(window, 'resize', resize);
+		tw.addEvent(window, 'resize', resize);
 		resize();
 
 		if (tw.isW3C) {
 			makeCode();
 		}
+
+		makeMenuActive();
 	});
 })(this);
 
