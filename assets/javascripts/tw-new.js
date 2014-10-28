@@ -4,10 +4,16 @@
  * date: 2014-10-15
  */
 console.time('time: ');
-(function(global) {
+(function(global, undefined) {
 var tw = {
-	versions: '1.0',
-	isW3C: !!document.dispatchEvent
+		versions: '1.0',
+		isW3C: !!document.dispatchEvent
+	},
+	draggle;
+
+// 支持
+tw.supports = {
+	isTouch: 'createTouch' in document
 };
 
 // html字符转成dom节点
@@ -240,6 +246,82 @@ function draggable(elem, fns) {
 	tw.addEvent(document, 'mouseup', dragend);
 }
 
+// 阻止默认事件
+function preventDefault(event) {
+	event = event || window.event;
+	if (event.preventDefault) {
+		event.preventDefault();
+	}
+	else {
+		event.returnValue = false;
+	}
+}
+// 坐标
+function coord(event, target) {
+	event = event || window.event;
+	if (event.offsetX !== undefined) {
+		coord = function(event) {
+			event = event || window.event;
+			return {
+				x: event.offsetX,
+				y: event.offsetY
+			};
+		};
+	}
+	else if (event.pageX !== undefined) {
+		coord = function(event, target) {
+			var rect = getClientRect(this);
+			return {
+				x: event.pageX - rect.left,
+				y: event.pageY - rect.top
+			};
+		};
+	}
+	return coord(event, target);
+}
+
+// 拖曳事件
+if (tw.supports.isTouch) {
+	draggle = {
+		start: 'touchstart',
+		move: 'touchmove',
+		end: 'touchend'
+	};
+}
+else {
+	draggle = {
+		start: 'mousedown',
+		move: 'mousemove',
+		end: 'mouseup'
+	};
+}
+
+draggle.point = function(context) {
+	var result = {x: 0, y: 0},
+		context = context || document,
+		handler;
+
+	if (tw.supports.isTouch) {
+		handler = function(event) {
+			var touch;
+			event = event || window.event;
+			touch = event[0];
+			result.x = touch.offsetX;
+			result.y = touch.offsetY;
+		};
+	}
+	else {
+		handler = function(event) {
+			event = event || window.event;
+			result.x = event.offsetX;
+			result.y = event.offsetY;
+		};
+	}
+	addEvent(document, this.move, handler);
+	
+	return result;
+};
+
 // 原生对象自定义方法
 if (!Array.prototype.forEach) {
 	Array.prototype.forEach = function(fn) {
@@ -254,6 +336,7 @@ if (!Array.prototype.forEach) {
 
 tw.insertHTML = insertHTML;
 tw.parseHTML = parseHTML;
+tw.getClientRect = getClientRect;
 tw.selectorAll = selectorAll;
 tw.addEvent = addEvent;
 tw.removeEvent = removeEvent;
@@ -261,6 +344,7 @@ tw.getText = getText;
 tw.domReady = domReady;
 tw.Klass = Klass;
 tw.draggable = draggable;
+tw.draggle = draggle;
 
 global.tw = tw;
 })(this);

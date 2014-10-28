@@ -5,262 +5,120 @@ title: 会做自由落体的小球
 
 <p>拖动小球，然后释放</p>
 
-<style type="text/css">
-#main {
-    position: relative;
-}
-.ball {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 10px;
-    margin: auto;
-
-    width: 60px;
-    height: 60px;
-    border-radius: 100%;
-
-    background: -webkit-radial-gradient(#7ca5e2 -20px, #3855e6);
-    box-shadow: 0 10px 16px;
-
-    cursor: move;
-}
-</style>
-<div class="ball"></div>
-<script type="text/javascript">
-(function() {
-var ball = tw.selectorAll('.ball')[0];
-tw.draggable(ball);
-})();
-</script>
-<!-- <canvas id="cvs" width="500" height="400"></canvas>
+<canvas id="cvs" width="500" height="500"></canvas>
 <script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/tween.js"></script>
 <script type="text/javascript">
-void function (){
-    var dataFns=[];
-    function rad(angle)
-    {
-        return Math.PI/180*angle;
+(function() {
+var main = tw.selectorAll('#main')[0],
+    cvs = tw.selectorAll('#cvs')[0],
+    ctx = cvs.getContext('2d'),
+    // 坐标点
+    point = tw.draggle.point(cvs),
+    FLOOR = 400,
+    Ball, ball;
+
+// 小球构造函数
+Ball = tw.Klass({
+    construct: function(ctx, x, y, r, callback) {
+        this.ctx = ctx;
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.callback = callback;
+        this.running = false;
+    },
+    draw: function() {
+        this.callback && this.callback.call(this);
+        var ctx = this.ctx,
+            color = ctx.createRadialGradient(this.x - 20, this.y - 20, this.r - 20, this.x + 10, this.y + 10, this.r + 35);
+
+        ctx.beginPath();
+        color.addColorStop(0, '#7ca5e2');
+        color.addColorStop(1, '#3855e6');
+        ctx.fillStyle = color;
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.shadowOffsetY = 10 + FLOOR - this.y;
+        ctx.shadowBlur = 10 + (FLOOR - this.y) / 2;
+        ctx.shadowColor = '#aaa';
+        ctx.fill();
+        ctx.restore();
     }
-    function Ball(ctx, x, y, r)
-    {
-        this.ctx=ctx;
-        this.isAnim=false;
-        this.x=x;
-        this.y=y;
-        this.r=r;
+});
+ball = new Ball(ctx, 100, 400, 30, bounce);
 
-        this.push(this);
+// 清除canvas
+function clearRect() {
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+}
+// 更新canvas
+function update() {
+    clearRect();
+    ball.draw();
+    follow();
+    other();
+    
+    setTimeout(update, 1000 / 60);
+}
+// 落体
+function bounce() {
+    var elapsedTime;
+    if (this.running) {
+        if (!this.animOptions) {
+            this.animOptions = {
+                startTime: +new Date,
+                startY: this.y,
+                elapsedY: FLOOR - this.y,
+                duration: 800
+            };
+        }
+
+        elapsedTime = +new Date - this.animOptions.startTime;
+        if (elapsedTime > this.animOptions.duration) {
+            this.running = false;
+            this.y = FLOOR;
+            this.animOptions = null;
+        }
+        else {
+            this.y = Tween.Bounce.easeOut(elapsedTime, this.animOptions.startY, this.animOptions.elapsedY, this.animOptions.duration);
+        }
     }
-    Ball.prototype={
-        draw: function (){
-            this.ctx.save();
+}
+// 小球跟随
+function follow() {
+    if (ball.dragging) {
+        ball.x = point.x;
+        ball.y = point.y;
+    }
+    return false;
+}
+// 检测
+function testColl() {
+    return ctx.isPointInPath(point.x, point.y);
+}
+function other() {
+    if (testColl()) {
+        cvs.style.cursor = 'move';
+    }
+    else {
+        cvs.style.cursor = '';
+    }
+}
+function canvasWidth() {
+    cvs.width = main.offsetWidth;
+}
+canvasWidth();
 
-            this.ctx.beginPath();
+tw.addEvent(cvs, tw.draggle.start, function() {
+    if (ctx.isPointInPath(point.x, point.y)) {
+        ball.dragging = true;
+    }
+});
+// 释放小球
+tw.addEvent(document, tw.draggle.end, function() {
+    ball.dragging = false;
+    ball.running = true;
+});
 
-            // var color=this.ctx.createLinearGradient(this.x+30, this.y+30, this.x-10, this.y-10);
-            var color=this.ctx.createRadialGradient(this.x-20, this.y-20, this.r-20, this.x+10, this.y+10, this.r+35);
-            color.addColorStop(0, '#7ca5e2');
-            color.addColorStop(1, '#3855e6');
-            this.ctx.fillStyle=color;
-
-            
-            this.ctx.arc(this.x, this.y, this.r, 0, rad(360));
-
-            this.ctx.shadowOffsetY=10+300-this.y;
-            // this.ctx.shadowOffsetX=30;
-            this.ctx.shadowBlur=10+(300-this.y)/2;
-            this.ctx.shadowColor='#aaa';
-            // this.ctx.scale(1, .5);
-
-            this.ctx.fill();
-
-            this.ctx.restore();
-
-
-            if(this.isAnim)
-            {
-                this.anim();
-            }
-        },
-        push: function (){
-            dataFns.push(this);
-        },
-        remove: function (){
-
-            var index=dataFns.indexOf(this);
-            if(~index)
-            {
-                dataFns.splice(index, 1);
-            }
-        },
-        anim: function (){
-            this.isAnim=true;
-
-            this.elapsedTime=+new Date-this.startTime;
-            if(this.propertys)
-            {  
-                if(this.elapsedTime>this._duration)
-                {
-                    this.isAnim=false;
-                    delete this.elapsedTime;
-                    delete this.startTime;
-                    delete this.propertys;
-                    this.attr(this.propertys);
-                }
-                else
-                {
-                    for(var o in this.propertys)
-                    {
-                        this[o]=Tween.Bounce.easeOut(this.elapsedTime, this['_begin'+o], this.propertys[o]-this['_begin'+o], this._duration);
-                    }
-                }
-            }
-
-            return this;
-        },
-        from: function (propertys){
-            for(var o in propertys)
-            {
-                this[o]=propertys[o];
-            }
-
-            return this;
-        },
-        duration: function (duration){
-            this._duration=duration||400;
-
-            return this;
-        },
-        attr: function (propertys){
-
-            if(this.isAnim)
-            {
-                this.startTime=+new Date;
-                this.propertys=propertys;
-
-                for(var o in propertys)
-                {
-                    this['_begin'+o]=this[o];
-                }
-
-                this.anim();
-            }
-            else
-            {
-                for(var o in propertys)
-                {
-                    this[o]=propertys[o];
-                }
-            }
-        },
-        draggable: function (options){
-            this.isDrag=true;
-            this.end=options.end;
-        },
-        dragging: function (x, y){
-            this.x=x;
-            this.y=y;
-        },
-        dragover: function (){
-            this.end&&this.end();
-        }
-    };
-    var frame={
-        fps: 60,
-        init: function (){
-            this.cvs=document.getElementById('cvs');
-            this.ctx=this.cvs.getContext('2d');
-
-            this.run();
-            this.bind();
-        },
-        run: function (){
-            var _this=this;
-            // 清空画布
-            this.clearRect();
-
-            this.draw();
-
-            this.timeId=setTimeout(function (){
-                _this.run();
-            }, 1000/this.fps);
-        },
-        draw: function (){
-            for(var i=0;i<dataFns.length;i++)
-            {
-                dataFns[i].draw();
-            }
-        },
-        clearRect: function (){
-            this.ctx.clearRect(0, 0, this.cvs.width, this.cvs.height);
-        },
-        stop: function (){
-            clearTimeout(this.timeId);
-        },
-        draggable: function (){
-            
-        },
-        getEventTarget: function (x, y){
-            this.clearRect();
-            for(var i=0;i<dataFns.length;i++)
-            {
-                dataFns[i].draw();
-                if(this.ctx.isPointInPath(x, y))
-                {
-                    // console.log(true);
-
-                    return dataFns[i];
-                }
-            }
-
-            return null;
-        },
-        bind: function (){
-
-            var _this=this;
-
-            var dragTarget;
-            this.cvs.addEventListener('mousedown', function (ev){
-                ev=ev||event;
-
-                dragTarget=_this.getEventTarget(ev.offsetX||ev.layerX, ev.offsetY||ev.layerY);
-                this.style.cursor='move';
-
-            }, false);
-
-            this.cvs.addEventListener('mousemove', function (ev){
-                ev=ev||event;
-
-                if(dragTarget && dragTarget.isDrag)
-                {
-                    dragTarget.dragging(ev.offsetX||ev.layerX, ev.offsetY||ev.layerY);
-                }
-
-            }, false);
-            this.cvs.addEventListener('mouseup', function (ev){
-                ev=ev||event;
-
-                dragTarget.dragover();
-                dragTarget=null;
-                this.style.cursor='';
-
-
-            }, false);
-        }
-    };
-
-    frame.init();
-
-    var ball=new Ball(frame.ctx, 200, 300, 30);
-
-    ball.draggable({
-        end: function (){
-            // console.log(1);
-            ball.anim()
-                .duration(900)
-                .attr({y: 300});
-        }
-    });
-}();
-</script> -->
+update();
+})();
+</script>
