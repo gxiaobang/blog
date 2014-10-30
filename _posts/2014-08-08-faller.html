@@ -24,11 +24,10 @@ Ball = tw.Klass({
         this.x = x;
         this.y = y;
         this.r = r;
-        this.callback = callback;
         this.running = false;
     },
     draw: function() {
-        this.callback && this.callback.call(this);
+        this.bounce();
         var ctx = this.ctx,
             color = ctx.createRadialGradient(this.x - 20, this.y - 20, this.r - 20, this.x + 10, this.y + 10, this.r + 35);
 
@@ -42,9 +41,36 @@ Ball = tw.Klass({
         ctx.shadowColor = '#aaa';
         ctx.fill();
         ctx.restore();
+    },
+    // 自由落体
+    bounce: function() {
+        var elapsedTime;
+        if (this.running) {
+            if (!this.animOptions) {
+                this.animOptions = {
+                    startTime: +new Date,
+                    startY: this.y,
+                    elapsedY: FLOOR - this.y,
+                    duration: 800
+                };
+            }
+
+            elapsedTime = +new Date - this.animOptions.startTime;
+            if (elapsedTime > this.animOptions.duration) {
+                this.y = FLOOR;
+                this.completed();
+            }
+            else {
+                this.y = Tween.Bounce.easeOut(elapsedTime, this.animOptions.startY, this.animOptions.elapsedY, this.animOptions.duration);
+            }
+        }
+    },
+    completed: function() {
+        this.running = false;
+        this.animOptions = null;
     }
 });
-ball = new Ball(ctx, 100, 400, 30, bounce);
+ball = new Ball(ctx, 100, 400, 30);
 
 // 清除canvas
 function clearRect() {
@@ -58,30 +84,6 @@ function update() {
     other();
     
     setTimeout(update, 1000 / 60);
-}
-// 落体
-function bounce() {
-    var elapsedTime;
-    if (this.running) {
-        if (!this.animOptions) {
-            this.animOptions = {
-                startTime: +new Date,
-                startY: this.y,
-                elapsedY: FLOOR - this.y,
-                duration: 800
-            };
-        }
-
-        elapsedTime = +new Date - this.animOptions.startTime;
-        if (elapsedTime > this.animOptions.duration) {
-            this.running = false;
-            this.y = FLOOR;
-            this.animOptions = null;
-        }
-        else {
-            this.y = Tween.Bounce.easeOut(elapsedTime, this.animOptions.startY, this.animOptions.elapsedY, this.animOptions.duration);
-        }
-    }
 }
 // 小球跟随
 function follow() {
@@ -111,12 +113,16 @@ canvasWidth();
 tw.addEvent(cvs, tw.draggle.start, function() {
     if (ctx.isPointInPath(point.x, point.y)) {
         ball.dragging = true;
+        ball.completed();
     }
 });
 // 释放小球
 tw.addEvent(document, tw.draggle.end, function() {
     ball.dragging = false;
     ball.running = true;
+});
+tw.addEvent(cvs, tw.draggle.move, function(event) {
+    tw.preventDefault(event);
 });
 
 update();

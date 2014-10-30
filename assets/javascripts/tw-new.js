@@ -340,6 +340,7 @@ tw.getClientRect = getClientRect;
 tw.selectorAll = selectorAll;
 tw.addEvent = addEvent;
 tw.removeEvent = removeEvent;
+tw.preventDefault = preventDefault;
 tw.getText = getText;
 tw.domReady = domReady;
 tw.Klass = Klass;

@@ -3,7 +3,9 @@
  */
 
 ;(function(global) {
-	var main;
+	var main,
+		totop,
+		timeoutId;
 	// footer在最底部
 	function resize() {
 		main.style.minHeight = (window.innerHeight || document.documentElement.clientHeight) - 166 + 'px';
@@ -34,16 +36,57 @@
 			}
 		}
 	}
+	// 获取纵向滚动条距离
+	function getScrollY() {
+		return document.body.scrollTop || document.documentElement.scrollTop;
+	}
+	// 返回顶部
+	function scrollToTop() {
+		clearTimeout(timeoutId);
+		// totop.className = '';
+		if (getScrollY() > 0) {
+			totop.style.display = '';
+			setTimeout(function() {
+				totop.className = 'totop-show';
+			});
+		}
+		else {
+			totop.className = 'totop-hide';
+			timeoutId = setTimeout(function() {
+				totop.style.display = 'none';
+			}, 200);
+		}
+	}
+	// 滚动到顶部
+	function moveToTop() {
+		var scrollY,
+			currentY;
+		setTimeout(function run() {
+			currentY = getScrollY();
+			if (currentY > 0) {
+				scrollY = (0 - currentY) / 5;
+				scrollY += currentY;
+				document.body.scrollTop = scrollY;
+				document.documentElement.scrollTop = scrollY;
+				setTimeout(run, 20);
+			}
+		}, 20);
+	}
 	tw.domReady(function() {
 		main = tw.selectorAll('#main')[0];
-		tw.addEvent(window, 'resize', resize);
-		resize();
-
+		totop = tw.selectorAll('#totop')[0];
+		
 		if (tw.isW3C) {
 			makeCode();
 		}
 
+		resize();
 		makeMenuActive();
+		scrollToTop();
+
+		tw.addEvent(totop, 'click', moveToTop);
+		tw.addEvent(window, 'scroll', scrollToTop);
+		tw.addEvent(window, 'resize', resize);
 	});
 })(this);
 
