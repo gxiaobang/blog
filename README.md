@@ -1,5 +1,4 @@
-﻿Example
+﻿热爱生活 | 关注用户体验
 =====
 
-关注前端，热爱生活
-
+直戳此处[gxiaobang.github.io/blog/](http://gxiaobang.github.io/blog/)

@@ -8,7 +8,7 @@
 		timeoutId;
 	// footer在最底部
 	function resize() {
-		main.style.minHeight = (window.innerHeight || document.documentElement.clientHeight) - 166 + 'px';
+		main.style.minHeight = (window.innerHeight || document.documentElement.clientHeight) - 116 + 'px';
 	}
 	// 代码块
 	function makeCode() {

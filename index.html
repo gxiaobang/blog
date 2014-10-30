@@ -16,9 +16,11 @@ posi: home
 				</div>
 			</header>
 			<div class="entry-summary">
-				<div>{{ post.excerpt }}</div>
-				<a href="{{ site.baseurl }}{{ post.url }}" class="entry-more">阅读全文 »</a>
+				{{ post.excerpt }}
 			</div>
+			<footer class="entry-footer">
+				<a href="{{ site.baseurl }}{{ post.url }}" class="entry-more">阅读全文 »</a>
+			</footer>
 		</article>
 	{% endfor %}
 </div>
