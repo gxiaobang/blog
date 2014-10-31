@@ -3,7 +3,7 @@
  * author: bang
  * date: 2014-10-15
  */
-console.time('time: ');
+// console.time('time: ');
 (function(global, undefined) {
 var tw = {
 		versions: '1.0',
@@ -13,7 +13,7 @@ var tw = {
 
 // 支持
 tw.supports = {
-	isTouch: 'createTouch' in document
+	isTouch: ('createTouch' in document)
 };
 
 // html字符转成dom节点
@@ -192,6 +192,23 @@ function Klass(options, parent) {
 	Klass.prototype.constructor = Klass;
 	return Klass;
 }
+// 获取页面距离
+function getLeft(elem) {
+	var left = 0;
+	while (elem) {
+		left += elem.offsetLeft;
+		elem = elem.offsetParent;
+	}
+	return left;
+}
+function getTop(elem) {
+	var top = 0;
+	while (elem) {
+		top += elem.offsetTop;
+		elem = elem.offsetParent;
+	}
+	return top;
+}
 // getBoundingClientRect
 function getClientRect(elem) {
 	if (elem.getBoundingClientRect) {
@@ -296,30 +313,31 @@ else {
 	};
 }
 
-draggle.point = function(context) {
-	var result = {x: 0, y: 0},
-		context = context || document,
-		handler;
 
-	if (tw.supports.isTouch) {
-		handler = function(event) {
-			var touch;
-			event = event || window.event;
-			touch = event[0];
-			result.x = touch.offsetX;
-			result.y = touch.offsetY;
-		};
+function Point(context) {
+	this.xy = {x: 0, y: 0};
+	this.context = context || document;
+	this.events();
+}
+Point.prototype = {
+	getPoint: function(event) {
+		event = event || window.event;
+		if (tw.supports.isTouch) {
+			var touch = event.touches[0];
+			this.xy.x = touch.clientX - getLeft(touch.target);
+			this.xy.y = touch.clientY - getTop(touch.target);
+		}
+		else {
+			this.xy.x = event.offsetX;
+			this.xy.y = event.offsetY;
+		}
+	},
+	events: function() {
+		var _this = this;
+		addEvent(this.context, draggle.move, function(event) {
+			_this.getPoint(event);
+		});
 	}
-	else {
-		handler = function(event) {
-			event = event || window.event;
-			result.x = event.offsetX;
-			result.y = event.offsetY;
-		};
-	}
-	addEvent(document, this.move, handler);
-	
-	return result;
 };
 
 // 原生对象自定义方法
@@ -346,7 +364,8 @@ tw.domReady = domReady;
 tw.Klass = Klass;
 tw.draggable = draggable;
 tw.draggle = draggle;
+tw.Point = Point;
 
 global.tw = tw;
 })(this);
-console.timeEnd('time: ');
+// console.timeEnd('time: ');

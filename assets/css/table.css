@@ -4,7 +4,8 @@
 }
 .table-scroll {
 	overflow: auto;
-	width: 400px; height: 300px;
+	/*max-width:;*/
+	height: 300px;
 	border: 1px solid #ccc;
 }
 .table-self {

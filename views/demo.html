@@ -90,7 +90,6 @@
 		<div class="cell">7</div>
 	</div>
 </div>
-<input value="text" readonly>
 <select readonly id="sel">
 	<option>1</option>
 	<option>2</option>
@@ -100,12 +99,11 @@
 </select>
 <script type="text/javascript">
 sel.onfocus = function() {
-	if (this.hasAttribute('readonly')) {
-		setTimeout(function() {
-			sel.blur();
-		});
-	}
+	console.log('triggle');
 }
+var event = document.createEvent('Event');
+event.initEvent('focus', true, true);
+sel.dispatchEvent(event);
 </script>
 </body>
 </html>

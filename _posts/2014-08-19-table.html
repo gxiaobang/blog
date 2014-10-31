@@ -7,12 +7,24 @@ title: 倔强的表格固定
 	想到固定就想到css属性(position: fixed)，相对于window固定，而现在需求相对于包裹表格的element固定，显然fixed并不适用。单纯的css解决不了，只能用绝对定位外加js控制，根据滚动条的距离来设置固定位置。
 </p>
 
-<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/table.css">
-<div class="table-wrap">
-	<div class="table-scroll">
-		<table class="table-self">
+<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/frezen-table.css">
+<div class="frezen-table">
+	<div class="frezen-scroll">
+		<table>
 			<thead>
 				<tr>
+					<td>序号</td>
+					<td>姓名</td>
+					<td>编号</td>
+					<td>职位</td>
+					<td>部门</td>
+					<td>备注</td>
+					<td>序号</td>
+					<td>姓名</td>
+					<td>编号</td>
+					<td>职位</td>
+					<td>部门</td>
+					<td>备注</td>
 					<td>序号</td>
 					<td>姓名</td>
 					<td>编号</td>
@@ -22,118 +34,42 @@ title: 倔强的表格固定
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>01</td>
-					<td>A</td>
-					<td>0001</td>
-					<td>工程师</td>
-					<td>生产部</td>
-					<td>勤劳、勇敢</td>
-				</tr>
-				<tr>
-					<td>02</td>
-					<td>B</td>
-					<td>0002</td>
-					<td>工程师</td>
-					<td>生产部</td>
-					<td>勤劳、勇敢</td>
-				</tr>
-				<tr>
-					<td>03</td>
-					<td>C</td>
-					<td>0003</td>
-					<td>工程师</td>
-					<td>生产部</td>
-					<td>勤劳、勇敢</td>
-				</tr>
-				<tr>
-					<td>04</td>
-					<td>D</td>
-					<td>0004</td>
-					<td>工程师</td>
-					<td>生产部</td>
-					<td>勤劳、勇敢</td>
-				</tr>
-				<tr>
-					<td>05</td>
-					<td>E</td>
-					<td>0005</td>
-					<td>工程师</td>
-					<td>生产部</td>
-					<td>勤劳、勇敢</td>
-				</tr>
-				<tr>
-					<td>06</td>
-					<td>F</td>
-					<td>0006</td>
-					<td>工程师</td>
-					<td>生产部</td>
-					<td>勤劳、勇敢</td>
-				</tr>
-				<tr>
-					<td>07</td>
-					<td>G</td>
-					<td>0007</td>
-					<td>工程师</td>
-					<td>生产部</td>
-					<td>勤劳、勇敢</td>
-				</tr><tr>
-					<td>08</td>
-					<td>H</td>
-					<td>0008</td>
-					<td>工程师</td>
-					<td>生产部</td>
-					<td>勤劳、勇敢</td>
-				</tr>
-				<tr>
-					<td>09</td>
-					<td>I</td>
-					<td>0009</td>
-					<td>工程师</td>
-					<td>生产部</td>
-					<td>勤劳、勇敢</td>
-				</tr>
-				<tr>
-					<td>10</td>
-					<td>J</td>
-					<td>0010</td>
-					<td>工程师</td>
-					<td>生产部</td>
-					<td>勤劳、勇敢</td>
-				</tr>
-				<tr>
-					<td>11</td>
-					<td>K</td>
-					<td>0011</td>
-					<td>工程师</td>
-					<td>生产部</td>
-					<td>勤劳、勇敢</td>
-				</tr>
-				<tr>
-					<td>12</td>
-					<td>L</td>
-					<td>0012</td>
-					<td>工程师</td>
-					<td>生产部</td>
-					<td>勤劳、勇敢</td>
-				</tr>
+				{% for i in (1..50) %}
+					<tr>
+						<td>0{{ i }}</td>
+						<td>LL{{ i }}</td>
+						<td>000{{ i }}</td>
+						<td>工程师</td>
+						<td>生产部</td>
+						<td>勤劳、勇敢</td>
+						<td>0{{ i }}</td>
+						<td>LL{{ i }}</td>
+						<td>000{{ i }}</td>
+						<td>工程师</td>
+						<td>生产部</td>
+						<td>勤劳、勇敢</td>
+						<td>0{{ i }}</td>
+						<td>LL{{ i }}</td>
+						<td>000{{ i }}</td>
+						<td>工程师</td>
+						<td>生产部</td>
+						<td>勤劳、勇敢</td>
+					</tr>
+				{% endfor %}
 			</tbody>		
 		</table>
 	</div>
-	<div class="table-fixed">
-		<div class="table-fixed-thead">
-			<span>序号</span>
-			<span>姓名</span>
-			<span>编号</span>
-			<span>职位</span>
-			<span>部门</span>
-			<span>备注</span>
-		</div>
+	<div class="frezen-list">
+		
+	</div>
+	<div class="frezen-thead">
+		
 	</div>
 </div>
+<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/frezen-table.js"></script>
 <script type="text/javascript">
 // 选择器
-function $selector( node, context ) {
+/*function $selector( node, context ) {
 	return ( context || document ).querySelectorAll( node );
 }
 function init() {
@@ -162,5 +98,5 @@ function init() {
 	tableScroll.onscroll = scrollFixed;
 }
 
-window.onload = init;
+window.onload = init;*/
 </script>

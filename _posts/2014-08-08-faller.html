@@ -13,7 +13,7 @@ var main = tw.selectorAll('#main')[0],
     cvs = tw.selectorAll('#cvs')[0],
     ctx = cvs.getContext('2d'),
     // 坐标点
-    point = tw.draggle.point(cvs),
+    point = new tw.Point(cvs),
     FLOOR = 400,
     Ball, ball;
 
@@ -88,14 +88,14 @@ function update() {
 // 小球跟随
 function follow() {
     if (ball.dragging) {
-        ball.x = point.x;
-        ball.y = point.y;
+        ball.x = point.xy.x;
+        ball.y = Math.min(point.xy.y, 400);
     }
     return false;
 }
 // 检测
 function testColl() {
-    return ctx.isPointInPath(point.x, point.y);
+    return ctx.isPointInPath(point.xy.x, point.xy.y);
 }
 function other() {
     if (testColl()) {
@@ -110,8 +110,9 @@ function canvasWidth() {
 }
 canvasWidth();
 
-tw.addEvent(cvs, tw.draggle.start, function() {
-    if (ctx.isPointInPath(point.x, point.y)) {
+tw.addEvent(cvs, tw.draggle.start, function(event) {
+    point.getPoint(event);
+    if (testColl()) {
         ball.dragging = true;
         ball.completed();
     }
