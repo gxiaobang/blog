@@ -91,13 +91,41 @@ FzTable.prototype = {
 	},
 	// 制作column
 	makeColumn: function() {
-		var fzColumn = getElem('.fz-column', this.fzWrap)[0];
+		var _this = this,
+			fzColumn = getElem('.fz-column', this.fzWrap)[0];
 		if (!fzColumn) {
 			fzColumn = document.createElement('div');
 			fzColumn.className = 'fz-column';
-			fzColumn.appendChild(this.elem.cloneNode(true));
 			this.fzWrap.insertBefore(fzColumn, this.fzHead);
+
+			// 滚轮事件
+			if (navigator.userAgent.indexOf('Firefox') > 0) {
+				fzColumn.addEventListener('DOMMouseScroll', function(event) {
+					event = event || window.event;
+					if (event.detail > 0) {
+						_this.fzScroll.scrollTop += 100;
+					}
+					else {
+						_this.fzScroll.scrollTop += -100;
+					}
+					return false;
+				}, true);
+			}
+			else {
+				fzColumn.onmousewheel = function(event) {
+					event = event || window.event;
+					if (event.wheelDelta > 0) {
+						_this.fzScroll.scrollTop += -100;
+					}
+					else {
+						_this.fzScroll.scrollTop += 100;
+					}
+					return false;
+				};
+			}
 		}
+		fzColumn.innerHTML = '';
+		fzColumn.appendChild(this.elem.cloneNode(true));
 		this.fzColumn = fzColumn;
 	},
 	// 设置box
