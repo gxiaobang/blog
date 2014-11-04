@@ -1,0 +1,71 @@
+---
+layout: default
+title: 倔强的表格固定
+---
+
+<p>
+	原生javascript实现的表格固定
+</p>
+
+<div class="fz-wrap">
+	<div class="fz-scroll">
+		<table class="fz-table" id="fzTable" data-fz-column="5">
+			<thead>
+				<tr>
+					<td>序号</td>
+					<td>姓名</td>
+					<td>编号</td>
+					<td>职位</td>
+					<td>部门</td>
+					<td>备注</td>
+					<td>序号</td>
+					<td>姓名</td>
+					<td>编号</td>
+					<td>职位</td>
+					<td>部门</td>
+					<td>备注</td>
+					<td>序号</td>
+					<td>姓名</td>
+					<td>编号</td>
+					<td>职位</td>
+					<td>部门</td>
+					<td>备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for i in (1..50) %}
+					<tr>
+						<td>0{{ i }}</td>
+						<td>LL{{ i }}</td>
+						<td>000{{ i }}</td>
+						<td>工程师</td>
+						<td>生产部</td>
+						<td>勤劳、勇敢</td>
+						<td>0{{ i }}</td>
+						<td>LL{{ i }}</td>
+						<td>000{{ i }}</td>
+						<td>工程师</td>
+						<td>生产部</td>
+						<td>勤劳、勇敢</td>
+						<td>0{{ i }}</td>
+						<td>LL{{ i }}</td>
+						<td>000{{ i }}</td>
+						<td>工程师</td>
+						<td>生产部</td>
+						<td>勤劳、勇敢</td>
+					</tr>
+				{% endfor %}
+			</tbody>		
+		</table>
+	</div>
+	<!-- <div class="fz-column">
+	</div>
+	<div class="fz-head">
+	</div> -->
+</div>
+<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/fzTable.css">
+<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/fzTable.js"></script>
+<script type="text/javascript">
+// 调用
+new FzTable('#fzTable');
+</script>

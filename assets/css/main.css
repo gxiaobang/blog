@@ -167,7 +167,7 @@ body {
 }
 .totop-hide {
 	opacity: 0;
-	transform: scale(1.2);
+	transform: scale(1.6);
 	/*display: none;*/
 }
 .totop-show {

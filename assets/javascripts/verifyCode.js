@@ -1,5 +1,5 @@
 /**
- * 生成验证码 Captcha
+ * 生成验证码 VerifyCode
  * author: bang
  * date: 2014-09-16
  */
@@ -81,16 +81,18 @@ function clearRect(cvs, ctx) {
 	ctx.clearRect(0, 0, cvs.width, cvs.height);
 }
 
-function Captcha() {
+function VerifyCode() {
 	this.init.apply(this, arguments);
 }
-Captcha.prototype = {
+VerifyCode.prototype = {
 	init: function(options) {
 		this.codeLen = options.codeLen;
 		this.width = options.width || 70;
 		this.height = options.height || 30;
 		this.canvas = options.canvas;
 		this.context = this.canvas.getContext('2d');
+		this.canvas.style.background = '#ccc';
+		this.canvas.style.cursor = 'pointer';
 
 		this.render();
 	},
@@ -120,6 +122,6 @@ Captcha.prototype = {
 	}
 };
 
-global.Captcha = Captcha;
+global.VerifyCode = VerifyCode;
 
 })(this);
