@@ -6,3 +6,70 @@ title: 用transition实现的动画
 <p>
 	在css3之前想要实现一个动画效果，只能依赖javascript的定时器。现在css3的诞生，改变这一现状。
 </p>
+
+<div class="box rotateX" id="box_img"></div>
+<div class="btns">
+	<button class="selected">rotateX</button>
+	<button>rotateY</button>
+	<button>rotateZ</button>
+</div>
+<div class="note">
+	PS: 选择变形方式，鼠标悬浮在图片，可以看到效果哦。
+</div>
+<style type="text/css">
+.box {
+	display: inline-block;
+	background: url({{ site.baseurl }}/assets/images/i1.png) no-repeat center;
+	background-size: 270px;
+	width: 200px;
+	height: 200px;
+	border-radius: 100%;
+	transition: all 1s;
+}
+.rotateX:hover {
+	transform: rotateX(180deg);
+}
+.rotateY:hover {
+	transform: rotateY(180deg);
+}
+.rotateZ:hover {
+	transform: rotateZ(180deg);
+}
+.btns button.selected {
+	background: #ccc;
+}
+.note {
+	font-size: 14px;
+	color: red;
+}
+</style>
+<script type="text/javascript">
+(function() {
+var btns = tw.selectorAll('.btns')[0].children,
+	box_img = tw.selectorAll('#box_img')[0];
+
+// 选中按钮
+function btnSelected(elem) {
+	var i = 0;
+	for (; i < btns.length; i++) {
+		if (elem === btns[i]) {
+			btns[i].className = 'selected';
+			// 设置box的样式名
+			box_img.className = 'box ' + btns[i].innerHTML;
+		}
+		else {
+			btns[i].className = '';
+		}
+	}
+}
+btns[0].onclick = function() {
+	btnSelected(this);
+};
+btns[1].onclick = function() {
+	btnSelected(this);
+};
+btns[2].onclick = function() {
+	btnSelected(this);
+};
+})();
+</script>
