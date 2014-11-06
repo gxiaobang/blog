@@ -23,6 +23,10 @@ a:active,a:visited {
 }
 
 /* 自定义 */
+/*html,body {
+	width: 100%;
+	height: 100%;
+}*/
 body {
 	color: #636365;
 	background: #F7F7F7;
@@ -208,6 +212,74 @@ pre code {
 	clear: both;
 }
 /* end 清除浮动 */
+
+/* overlay */
+.overlay {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.6);
+	z-index: 100;
+
+	display: none;
+}
+.dialog {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	width: 300px;
+	height: 150px;
+	background: #fff;
+	border-radius: 4px;
+	/*box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);*/
+}
+.dialog .dialog-header {
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #ccc;
+}
+.dialog .dialog-header h3 {
+	float: left;
+	text-indent: .5em;
+	font-size: 16px;
+}
+.dialog .dialog-close {
+	float: right;
+	border: none;
+	outline: none;
+	background: none;
+	font-size: 20px;
+	font-weight: bold;
+	color: #aaa;
+	cursor: pointer;
+	transition: all .2s;
+}
+.dialog .dialog-close:hover {
+	color: #1FAEFF;
+}
+.dialog .dialog-content {
+	
+}
+.dialog .dialog-info {
+	margin: 20px;
+	margin-bottom: 70px;
+	max-height: 90px;
+	overflow-y: auto;
+}
+.dialog .dialog-btns {
+	position: absolute;
+	bottom: 12px;
+	right: 12px;
+}
+.dialog .dialog-btns button {
+	padding: 4px 10px;
+}
+/* end overlay */
 
 /* 响应式 */
 /*@media (max-width: 380px) {
