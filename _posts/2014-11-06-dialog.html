@@ -2,3 +2,31 @@
 layout: default
 title: 模拟弹窗
 ---
+
+<p>
+	做的的小弹窗，过段时间把它功能补全，做成一个独立的插件
+</p>
+
+<pre>
+	<code>
+	/**
+	 * new Dialog(options);
+	 * options配置属性
+	 * 		log: 输出信息
+	 * 		width: 窗口宽度
+	 * 		height: 窗口高度
+	 */
+	new Dialog({log: 'hello world'});
+	</code>
+</pre>
+<div>
+	<textarea id="txtLog" rows="4" cols="22">hello world</textarea>
+</div>
+<div>
+	<button id="btnOpen">弹出窗口</button>
+</div>
+<script type="text/javascript">
+btnOpen.onclick = function() {
+	new Dialog({log: txtLog.value, width: 360});
+};
+</script>
