@@ -8,7 +8,13 @@ var Dialog,
 	getOverlay,
 	getElem,
 	overlay,
-	css3Tran;
+	// css3过渡
+	css3Tran,
+	// 事件
+	addEvent,
+	removeEvent,
+	// 数据缓存
+	dataCache;
 Dialog = function() {
 	this.init.apply(this, arguments);
 };
@@ -30,7 +36,8 @@ css3Tran = function(options) {
 	options.elem.addEventListener('transitionend', function() {
 		// 删除结束事件
 		this.removeEventListener('transitionend', arguments.callee);
-		options.elem.style.cssText = oldCssText;
+		// options.elem.style.cssText = oldCssText;
+		options.elem.style.transition = '';
 		options.complete && options.complete.call(this);
 	}, false);
 	setTimeout(function() {
@@ -39,6 +46,75 @@ css3Tran = function(options) {
 			options.elem.style[o] = options.to[o];
 		}
 	});
+};
+dataCache = {
+	data: [],
+	// 添加
+	add: function(target, key, value) {
+		var item = this.find(target);
+		if (!item) {
+			// 初始化
+			item = [target, {}];
+			this.data.push(item);
+		}
+		if (!item[1][key]) {
+			item[1][key] = [];
+		}
+		item[1][key].push(value);
+	},
+	// 删除
+	remove: function(target, key, value) {
+		for (var i = 0; i < this.data.length; i++) {
+			if (this.data[i][0] === target) {
+				if (this.data[i][1][key]) {
+					for (var j = 0; j < this.data[i][1][key].length; j++) {
+						if (this.data[i][1][key][j] === value) {
+							this.data[i][1][key].splice(j, 1);
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	},
+	find: function(target, key) {
+		for (var i = 0; i < this.data.length; i++) {
+			if (this.data[i][0] === target) {
+				if (key) {
+					if (this.data[i][1][key]) {
+						return this.data[i][1][key];
+					}
+				}
+				else {
+					return this.data[i];
+				}
+			}
+		}
+		return null;
+	}
+};
+addEvent = function(elem, eventType, fn) {
+	var evt = eventType.substring(0, eventType.indexOf('.'));
+	dataCache.add(elem, eventType, fn);
+	elem.addEventListener(evt, fn, false);
+};
+removeEvent = function(elem, eventType, fn) {
+	var evt = eventType.substring(0, eventType.indexOf('.')),
+		fns, removed;
+	if (fn) {
+		fns = [fn];
+	}
+	else {
+		fns = dataCache.find(elem, eventType);
+	}
+	for (var i = 0; i < fns.length; i++) {
+		elem.removeEventListener(evt, fns[i]);
+		removed = dataCache.remove(elem, eventType, fns[i]);
+		if (removed) {
+			i--;
+		}
+	}
 };
 Dialog.prototype = {
 	init: function(options) {
@@ -57,7 +133,6 @@ Dialog.prototype = {
 		this.evInit();
 		this.show();
 		this.makeCenter();
-		this.showAnim();
 	},
 	// 弹窗大小
 	setBox: function() {
@@ -109,12 +184,15 @@ Dialog.prototype = {
 		getElem('.dialog-close', this.dialog)[0].onclick = 
 		getElem('.dialog-confirm', this.dialog)[0].onclick = 
 			function() {
-				_this.hidden();
+				_this.hide();
 			};
 		this.drag();
+		addEvent(window, 'resize.dialog', function() {
+			_this.makeCenter();
+		});
 	},
 	// 隐藏
-	hidden: function() {
+	hide: function() {
 		var _this = this;
 		css3Tran({
 			elem: this.dialog,
@@ -127,13 +205,14 @@ Dialog.prototype = {
 			},
 			duration: '.3s'
 		});
+
+		// 删除事件
+		removeEvent(window, 'resize.dialog');
 	},
 	// 显示
 	show: function() {
 		var _this = this;
 		this.overlay.style.display = '';
-	},
-	showAnim: function() {
 		css3Tran({
 			elem: this.dialog,
 			from: {

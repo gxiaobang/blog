@@ -59,12 +59,24 @@
 		*float: left;
 		/* end ie7- */
 	}
+
+	.box {
+		width: 100px; 
+		height: 100px;
+	}
+	.box:nth-child(1) {
+		background: #d44027;
+	}
+	.box:nth-child(2) {
+		background: #4183c4;
+	}
+	.box:nth-child(3) {
+		background: #ffac38;
+	}
 	</style>
 </head>
 <body>
-
-<button class=""></button>
-<ul class="nav">
+<!-- <ul class="nav">
 	<li>
 		<a href="javascript:void(0);">主页</a>
 	</li>
@@ -104,6 +116,64 @@ sel.onfocus = function() {
 var event = document.createEvent('Event');
 event.initEvent('focus', true, true);
 sel.dispatchEvent(event);
+</script> -->
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<script type="text/javascript">
+var css3Tran = function(options) {
+	var oldCssText = options.elem.style.cssText;
+	for (var o in (options.from || {})) {
+		options.elem.style[o] = options.from[o];
+	}
+	options.elem.addEventListener('transitionend', function() {
+		// 删除结束事件
+		this.removeEventListener('transitionend', arguments.callee);
+		// options.elem.style.cssText = oldCssText;
+		options.elem.style.transition = '';
+		options.complete && options.complete.call(this);
+	}, false);
+	setTimeout(function() {
+		options.elem.style.transition = options.duration || '.4s';
+		for (var o in (options.to || {})) {
+			options.elem.style[o] = options.to[o];
+		}
+	});
+};
+
+var boxs = document.querySelectorAll('.box');
+css3Tran({
+	elem: boxs[0],
+	to: {
+		width: '200px'
+	},
+	complete: function() {
+		console.log('ready');
+	},
+	duration: '1s'
+});
+var boxs = document.querySelectorAll('.box');
+css3Tran({
+	elem: boxs[1],
+	to: {
+		width: '200px'
+	},
+	complete: function() {
+		console.log('ready');
+	},
+	duration: '2s'
+});
+var boxs = document.querySelectorAll('.box');
+css3Tran({
+	elem: boxs[2],
+	to: {
+		width: '200px'
+	},
+	complete: function() {
+		console.log('ready');
+	},
+	duration: '3s'
+});
 </script>
 </body>
 </html>
