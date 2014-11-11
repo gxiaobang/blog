@@ -74,6 +74,7 @@
 		background: #ffac38;
 	}
 	</style>
+	<script type="text/javascript" src="../assets/javascripts/css3Tran.js"></script>
 </head>
 <body>
 <!-- <ul class="nav">
@@ -121,7 +122,7 @@ sel.dispatchEvent(event);
 <div class="box"></div>
 <div class="box"></div>
 <script type="text/javascript">
-var css3Tran = function(options) {
+/*var css3Tran = function(options) {
 	var oldCssText = options.elem.style.cssText;
 	for (var o in (options.from || {})) {
 		options.elem.style[o] = options.from[o];
@@ -173,7 +174,28 @@ css3Tran({
 		console.log('ready');
 	},
 	duration: '3s'
-});
+});*/
+var boxs = document.querySelectorAll('.box');
+css3Tran({
+		elem: boxs[1],
+		to: {
+			width: '200px'
+		}
+	})
+	.then({
+		to: {
+			width: 300
+		}
+	})
+	.then({
+		to: {
+			opacity: 0,
+			transform: 'scale(2)'
+		}
+	})
+	.complete(function() {
+		
+	});
 </script>
 </body>
 </html>

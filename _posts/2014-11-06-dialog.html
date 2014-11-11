@@ -1,10 +1,10 @@
 ---
 layout: default
-title: 模拟弹窗
+title: 弹窗
 ---
 
 <p>
-	模拟alert小弹窗，过段时间把功能补全，做成一个独立的插件
+	javascript可以调用浏览器自带的弹窗(alert)，来提示信息。有几个缺点，其一不能改变样式，其二浏览器停止响应，直到点了关闭。那么需求产生了，能否做一个用html结构的弹窗呢？
 </p>
 
 <pre>
@@ -27,6 +27,6 @@ title: 模拟弹窗
 </div>
 <script type="text/javascript">
 btnOpen.onclick = function() {
-	new Dialog({log: txtLog.value, width: 360});
+	new Dialog({log: txtLog.value, width: 360, title: '我是信息窗口'});
 };
 </script>

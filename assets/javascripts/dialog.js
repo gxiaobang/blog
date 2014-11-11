@@ -1,15 +1,16 @@
 /**
- * 模拟弹窗
+ * 弹窗(Dialog)
+ * author: bang
+ * date: 2014-11-7
  */
 
 ;(function(global) {
+	"use strict";
+
 var Dialog,
 	// 获取overlay
-	getOverlay,
 	getElem,
 	overlay,
-	// css3过渡
-	css3Tran,
 	// 事件
 	addEvent,
 	removeEvent,
@@ -18,34 +19,15 @@ var Dialog,
 Dialog = function() {
 	this.init.apply(this, arguments);
 };
-getOverlay = function() {
-	if (!overlay && !document.body.contains(overlay)) {
-		overlay = getElem('.overlay')[0];
+overlay = function() {
+	if (!overlay.node && !document.body.contains(overlay.node)) {
+		overlay.node = getElem('.overlay')[0];
 	}
-	return overlay;
+	return overlay.node;
 };
 getElem = function(elem, context) {
 	context = context || document;
 	return context.querySelectorAll(elem);
-};
-css3Tran = function(options) {
-	var oldCssText = options.elem.style.cssText;
-	for (var o in (options.from || {})) {
-		options.elem.style[o] = options.from[o];
-	}
-	options.elem.addEventListener('transitionend', function() {
-		// 删除结束事件
-		this.removeEventListener('transitionend', arguments.callee);
-		// options.elem.style.cssText = oldCssText;
-		options.elem.style.transition = '';
-		options.complete && options.complete.call(this);
-	}, false);
-	setTimeout(function() {
-		options.elem.style.transition = options.duration || '.4s';
-		for (var o in (options.to || {})) {
-			options.elem.style[o] = options.to[o];
-		}
-	});
 };
 dataCache = {
 	data: [],
@@ -118,9 +100,10 @@ removeEvent = function(elem, eventType, fn) {
 };
 Dialog.prototype = {
 	init: function(options) {
-		this.overlay = getOverlay();
+		this.overlay = overlay();
 		this.dialog = getElem('.dialog', this.overlay)[0];
 		this.header = getElem('header', this.dialog)[0];
+		this.title = this.title || '信息';
 		this.log = options.log;
 		this.width = options.width || 300;
 		this.height = options.height || 160;
@@ -129,8 +112,8 @@ Dialog.prototype = {
 	// 设置
 	setup: function() {
 		this.setBox();
-		this.makeInfo();
-		this.evInit();
+		this.initDisplay();
+		this.initEvent();
 		this.show();
 		this.makeCenter();
 	},
@@ -144,12 +127,24 @@ Dialog.prototype = {
 		this.dialog.style.left = (document.documentElement.clientWidth - this.dialog.offsetWidth) / 2 + 'px';
 		this.dialog.style.top = (document.documentElement.clientHeight - this.dialog.offsetHeight) / 2 + 'px';
 	},
-	// 输出信息
-	makeInfo: function() {
+	initDisplay: function() {
 		getElem('.dialog-info', this.overlay)[0].innerHTML = this.log || '';
 	},
+	// 事件初始化
+	initEvent: function() {
+		var _this = this;
+		getElem('.dialog-close', this.dialog)[0].onclick = 
+		getElem('.dialog-confirm', this.dialog)[0].onclick = 
+			function() {
+				_this.hide();
+			};
+		this.dragPosi();
+		addEvent(window, 'resize.dialog', function() {
+			_this.makeCenter();
+		});
+	},
 	// 拖曳
-	drag: function() {
+	dragPosi: function() {
 		var _this = this;
 		this.header.onmousedown = function(event) {
 			var differX,
@@ -178,19 +173,6 @@ Dialog.prototype = {
 			return false;
 		};
 	},
-	// 事件初始化
-	evInit: function() {
-		var _this = this;
-		getElem('.dialog-close', this.dialog)[0].onclick = 
-		getElem('.dialog-confirm', this.dialog)[0].onclick = 
-			function() {
-				_this.hide();
-			};
-		this.drag();
-		addEvent(window, 'resize.dialog', function() {
-			_this.makeCenter();
-		});
-	},
 	// 隐藏
 	hide: function() {
 		var _this = this;
@@ -200,11 +182,12 @@ Dialog.prototype = {
 				transform: 'scale(1.3)',
 				opacity: 0
 			},
-			complete: function() {
-				_this.overlay.style.display = 'none';
-			},
 			duration: '.3s'
+		})
+		.complete(function() {
+			_this.overlay.style.display = 'none';
 		});
+
 
 		// 删除事件
 		removeEvent(window, 'resize.dialog');

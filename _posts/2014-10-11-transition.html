@@ -7,15 +7,15 @@ title: 用transition实现的动画
 	在css3之前想要实现一个动画效果，只能依赖javascript的定时器。现在css3的诞生，改变这一现状。
 </p>
 
-<div class="box rotateX" id="box_img"></div>
+<div class="box" id="box_img"></div>
 <div class="btns">
 	<button class="selected">rotateX</button>
 	<button>rotateY</button>
 	<button>rotateZ</button>
 </div>
-<div class="note">
+<!-- <div class="note">
 	PS: 选择变形方式，鼠标悬浮在图片，可以看到效果哦。
-</div>
+</div> -->
 <style type="text/css">
 .box {
 	display: inline-block;
@@ -61,8 +61,18 @@ function btnSelected(elem) {
 	for (; i < btns.length; i++) {
 		if (elem === btns[i]) {
 			btns[i].className = 'selected';
-			// 设置box的样式名
-			box_img.className = 'box ' + btns[i].innerHTML;
+			css3Tran({
+				elem: box_img,
+				/*from: {
+					transform: 'none'
+				},*/
+				to: {
+					transform: btns[i].innerHTML + '(.5turn)'
+				}
+			})
+			.complete(function() {
+				this.elem.style.cssText = '';
+			});
 		}
 		else {
 			btns[i].className = '';

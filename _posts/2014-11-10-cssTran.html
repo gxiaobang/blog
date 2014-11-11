@@ -1,0 +1,71 @@
+---
+layout: default
+title: 脚本化动画
+---
+
+<p>
+	用js控制css3 Transition做各种高难等动作。
+</p>
+
+<pre>
+	<code>
+	/**
+	 * css3Tran(options);
+	 * options配置属性
+	 * 	elem		目标节点
+	 * 	from		起始状态
+	 * 	to  		目标状态
+	 * 	duration	持续时间
+	 * 	func		动画缓动函数
+	 */
+	css3Tran({
+			elem: '#box',
+			to: {
+				width: 200
+			}
+		})
+		.then({
+			to: {
+				transform: 'scale(2)',
+				opacity: 0
+			}
+		})
+		.complete(function() {
+			new Dialog({log: '动画完成'});
+		});
+	</code>
+</pre>
+<button id="btn_start">开始</button>
+<div id="box"></div>
+<style type="text/css">
+#box {
+	width: 100px;
+	height: 100px;
+	background: #d44027;
+}
+</style>
+<script type="text/javascript">
+btn_start.onclick = function() {
+	css3Tran({
+			elem: box,
+			to: {
+				width: 200,
+				height: 200
+			}
+		})
+		.then({
+			to: {
+				transform: 'rotate(1turn)'
+			}
+		})
+		.then({
+			to: {
+				transform: 'scale(2)',
+				opacity: 0
+			}
+		})
+		.complete(function() {
+			// new Dialog({log: '动画完成'});
+		});
+};
+</script>
