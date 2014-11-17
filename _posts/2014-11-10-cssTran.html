@@ -4,7 +4,7 @@ title: 脚本化动画
 ---
 
 <p>
-	用js控制css3 Transition做各种高难等动作。
+	transition可以完成各种炫酷的动画效果。如果单纯的只是想做个鼠标悬浮，css就可以完成，但是如果想完成复杂点的功能，需要javascript来控制css的属性。
 </p>
 
 <pre>
@@ -16,7 +16,7 @@ title: 脚本化动画
 	 * 	from		起始状态
 	 * 	to  		目标状态
 	 * 	duration	持续时间
-	 * 	func		动画缓动函数
+	 * 	func		运动缓动函数
 	 */
 	css3Tran({
 			elem: '#box',
@@ -49,8 +49,7 @@ btn_start.onclick = function() {
 	css3Tran({
 			elem: box,
 			to: {
-				width: 200,
-				height: 200
+				background: '#ffac38'
 			}
 		})
 		.then({
@@ -60,11 +59,13 @@ btn_start.onclick = function() {
 		})
 		.then({
 			to: {
-				transform: 'scale(2)',
-				opacity: 0
+				background: '#d44027',
+				transform: '',
+				opacity: 1
 			}
 		})
 		.complete(function() {
+			// this.reverse();
 			// new Dialog({log: '动画完成'});
 		});
 };

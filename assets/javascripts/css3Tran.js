@@ -52,7 +52,7 @@ var css3Tran = function(options) {
 		}
 	};
 
-// 获取不用浏览器对transition,transform的支持
+// 需要前缀支持
 propertyNames('transition');
 propertyNames('transform');
 
@@ -90,7 +90,11 @@ css3Tran.fn.prototype = {
 			setStyle(this.elem, {transition: (this.duration || '.4s') + (this.func ? ' ' + this.func : ' ease')});
 			this.elem.addEventListener('transitionend', function func(event) {
 				event = event || window.event;
-				if (event.propertyName === _this.lastPropertyName) {
+				/*if (event.propertyName === _this.lastPropertyName) {
+					_this.tranEnd(func);
+				}*/
+				if (_this.newTran) {
+					_this.newTran = false;
 					_this.tranEnd(func);
 				}
 				event.preventDefault();
@@ -111,9 +115,9 @@ css3Tran.fn.prototype = {
 			});
 		}
 	},
+	// 开始
 	tranStart: function() {
-		var keys = Object.keys(this.to);
-		this.lastPropertyName = keys[keys.length - 1];
+		this.newTran = true;
 	},
 	// 结束
 	tranEnd: function(func) {

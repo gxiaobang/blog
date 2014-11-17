@@ -73,8 +73,31 @@
 	.box:nth-child(3) {
 		background: #ffac38;
 	}
+
+	.animated {
+		-webkit-animation-duration: 1s;
+		-webkit-animation-direction: alternate;
+		-webkit-animation-fill-mode: backwards ;
+	}
+	.animated.infinite {
+	  -webkit-animation-iteration-count: infinite;
+	          animation-iteration-count: infinite;
+	}
+	.logger {
+		-webkit-animation-name: logger;
+	}
+	@-webkit-keyframes logger {
+		0% {
+			width: 0;
+		}
+		100% {
+			width: 400px;
+		}
+	}
+
+
+
 	</style>
-	<script type="text/javascript" src="../assets/javascripts/css3Tran.js"></script>
 </head>
 <body>
 <!-- <ul class="nav">
@@ -118,9 +141,10 @@ var event = document.createEvent('Event');
 event.initEvent('focus', true, true);
 sel.dispatchEvent(event);
 </script> -->
+<!-- <div class="box"></div>
 <div class="box"></div>
-<div class="box"></div>
-<div class="box"></div>
+<div class="box"></div> -->
+<input type="text" id="ipt" class="animated infinite logger">
 <script type="text/javascript">
 /*var css3Tran = function(options) {
 	var oldCssText = options.elem.style.cssText;
@@ -175,27 +199,24 @@ css3Tran({
 	},
 	duration: '3s'
 });*/
-var boxs = document.querySelectorAll('.box');
-css3Tran({
-		elem: boxs[1],
-		to: {
-			width: '200px'
-		}
-	})
-	.then({
-		to: {
-			width: 300
-		}
-	})
-	.then({
-		to: {
-			opacity: 0,
-			transform: 'scale(2)'
-		}
-	})
-	.complete(function() {
-		
-	});
+
+ipt.onpaste = function() {
+	console.log(this);
+};
+
+// http('url', )
+function http(url) {
+	// 创建
+	var xhr = new XMLHttpRequest();
+	// 打开
+	xhr.open('POST', url, true);
+	// 监听返回
+	xhr.onreadystatechange = function() {
+		console.log(this.readyState);
+	};
+	// 发送
+	xhr.send();
+}
 </script>
 </body>
 </html>
