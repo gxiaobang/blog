@@ -65,5 +65,6 @@
 }
 .dialog .dialog-btns button {
 	padding: 4px 10px;
+	margin-left: 10px;
 }
 /* end overlay */

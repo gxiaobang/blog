@@ -4,7 +4,7 @@
  * date: 2014-11-7
  */
 
-;(function(global) {
+;(function(global, undefined) {
 	"use strict";
 
 var Dialog,
@@ -15,10 +15,9 @@ var Dialog,
 	addEvent,
 	removeEvent,
 	// 数据缓存
-	dataCache;
-Dialog = function() {
-	this.init.apply(this, arguments);
-};
+	dataCache,
+	forEach;
+
 overlay = function() {
 	if (!overlay.node && !document.body.contains(overlay.node)) {
 		overlay.node = getElem('.overlay')[0];
@@ -98,15 +97,31 @@ removeEvent = function(elem, eventType, fn) {
 		}
 	}
 };
+// 数组遍历
+forEach = function(arr, fn) {
+	var i = 0,
+		result;
+	for (; i < arr.length; i++) {
+		result = fn(arr[i], i);
+		if (result === false) {
+			break;
+		}
+	}
+};
+
+Dialog = function() {
+	this.init.apply(this, arguments);
+};
 Dialog.prototype = {
 	init: function(options) {
 		this.overlay = overlay();
 		this.dialog = getElem('.dialog', this.overlay)[0];
 		this.header = getElem('header', this.dialog)[0];
-		this.title = this.title || '信息';
-		this.log = options.log;
+		this.title = options.title || '信息';
+		this.log = options.log || '';
 		this.width = options.width || 300;
 		this.height = options.height || 160;
+		this.btns = options.btns || [{value: '确定'}];
 		this.setup();
 	},
 	// 设置
@@ -128,23 +143,36 @@ Dialog.prototype = {
 		this.dialog.style.top = (document.documentElement.clientHeight - this.dialog.offsetHeight) / 2 + 'px';
 	},
 	initDisplay: function() {
-		getElem('.dialog-info', this.overlay)[0].innerHTML = this.log || '';
+		getElem('.dialog-info', this.dialog)[0].innerHTML = this.log;
+		getElem('.dialog-header>h3', this.dialog)[0].innerHTML = this.title;
 	},
 	// 事件初始化
 	initEvent: function() {
-		var _this = this;
-		getElem('.dialog-close', this.dialog)[0].onclick = 
-		getElem('.dialog-confirm', this.dialog)[0].onclick = 
-			function() {
+		var _this = this,
+			btnsElem = getElem('.dialog-btns', this.dialog)[0];
+
+		getElem('.dialog-close', this.dialog)[0].onclick = function() {
+			_this.hide();
+		};
+
+		// 添加所需的按钮
+		btnsElem.innerHTML = '';
+		forEach(this.btns, function(item) {
+			var btn = document.createElement('button');
+			btn.innerHTML = item.value;
+			btn.onclick = function() {
+				item.clk && item.clk.call(this);
 				_this.hide();
 			};
-		this.dragPosi();
+			btnsElem.appendChild(btn);
+		});
+		this.draggable();
 		addEvent(window, 'resize.dialog', function() {
 			_this.makeCenter();
 		});
 	},
 	// 拖曳
-	dragPosi: function() {
+	draggable: function() {
 		var _this = this;
 		this.header.onmousedown = function(event) {
 			var differX,
