@@ -1,10 +1,9 @@
-/* font */
+/* font-face */
 @font-face {
     font-family: "octicons";
-    src: url(../font/octicons.eot);
-  	src: local("@")
-	    url(../font/octicons.woff) format(woff);
+  	src: url(../font/octicons.woff);
 }
+
 /* end font */
 
 /* reset css */
@@ -145,8 +144,11 @@ body {
 	line-height: 46px;
 	text-align: center;
 }
+.footer-wrap a {
+	color: inherit;
+}
 
-#footer .octicon-mark-github {
+.octicon-mark-github {
 	font-family: octicons;
 	transition: color .2s;
 }
