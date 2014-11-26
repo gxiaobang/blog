@@ -1,7 +1,11 @@
 /* font-face */
 @font-face {
     font-family: "octicons";
-  	src: url(../font/octicons.woff);
+  	src: url('../font/octicons.eot');
+  	src: url('../font/octicons.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../font/octicons.woff') format('woff'), /* chrome、firefox */
+         url('../font/octicons.ttf')  format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+         url('../font/octicons.svg#svgFontName') format('svg'); /*  iOS 4.1- */
 }
 
 /* end font */
@@ -40,8 +44,9 @@ body {
 	top: 0;
 	left: 0;
 	width: 100%;
-	background: #fff;
-	box-shadow: 0 0 6px #ccc;
+	background: rgba(255,255,255,.9);
+	border-bottom: 1px solid #ccc;
+	box-shadow: 0 0 6px rgba(204, 204, 204, .75);
 	z-index: 99;
 }
 #header .header-wrap {
@@ -49,17 +54,14 @@ body {
 	margin: 0 auto;
 }
 #header .header-menu {
-	min-width: 300px;
+	white-space: nowrap;
 }
 #header .header-menu li {
 	position: relative;
 	display: inline;
 	margin-right: 10px;
-
 	text-transform: uppercase;
-	
 	font-size: 20px;
-	/*font-family: Arial,Helvetica Narrow;*/
 	line-height: 40px;
 }
 #header .header-menu li:after {
@@ -99,14 +101,14 @@ body {
 	width: 80%;
 	margin: 50px auto 20px;
 }
+#main p {
+	line-height: 1.7;
+}
 /* content */
 #content article {
 	margin-bottom: 20px;
 	line-height: 1.5;
 	/*border-bottom: 1px solid #ccc;*/
-}
-#content article h3 {
-	font-size: ;
 }
 #content .entry-meta {
 	/*margin: 2px;*/
@@ -155,10 +157,7 @@ body {
 .octicon-mark-github:hover {
 	color: #4183c4;
 }
-/*.octicon-mark-github:before {
-	content: "github.com";
-}
-:root*/ .octicon-mark-github:before {
+.octicon-mark-github:before {
 	content: "\f00a";
 	font-size: 30px;
 }
@@ -168,7 +167,7 @@ body {
 #totop {
 	position: fixed;
 	right: 2%;
-	bottom: 58px;
+	bottom: 50px;
 	cursor: pointer;
 	z-index: 99;
 

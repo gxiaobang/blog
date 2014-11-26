@@ -1,0 +1,115 @@
+// 载入字体
+@font-face {
+    font-family: "octicons";
+  	src: url(../font/octicons.woff);
+}
+
+// 变量声明
+$bgColor: #F7F7F7;
+$fontColor: #636365;
+$fontFamily: "微软雅黑",Helvetica,"Heiti SC",sans-serif !default;
+$colorBlue: #1FAEFF;
+
+// 代码块
+@mixin mp0 {
+	margin: 0;
+	padding: 0;
+}
+@mixin center {
+	margin: 0 auto;
+}
+@mixin prefix($property: transition, $value: '.2s') {
+	-webkit-#{$property}: $value;
+	-moz-#{$property}: $value;
+	-ms-#{$property}: $value;
+	#{$property}: $value;
+}
+@mixin menuActive {
+	left: 0;
+	right: 0;
+	opacity: 1;
+}
+
+/* reset */
+html,body,ul,h2,h3,h4,p {
+	@include mp0;
+}
+ul {
+	list-style: none;
+}
+a {
+
+}
+/* end reset */
+
+body {
+	color: $fontColor;
+	background: $bgColor;
+	font-family: $fontFamily;
+}
+
+// header
+#header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #fff;
+	box-shadow: 0 0 6px #ccc;
+	z-index: 99;
+
+	.header-wrap {
+		width: 90%;
+		// margin: 0 auto;
+		@include center;
+	}
+
+	.header-menu {
+		min-width: 300px;
+		li {
+			position: relative;
+			display: inline;
+			margin-right: 10px;
+			text-transform: uppercase;
+			font-size: 20px;
+			line-height: 40px;
+			
+			// 菜单鼠标悬浮
+			&:after {
+				content: "";
+				position: absolute;
+				left: 50%;
+				right: 50%;
+				bottom: -4px;
+				display: block;
+				height: 2px;
+				background: $colorBlue;
+				@include prefix(transition, 0.2s ease-in 0s);
+			}
+			&:hover:after {
+				@include menuActive;
+			}
+		}
+		.active:after {
+			@include menuActive;
+		}
+		a {
+			color: #999;
+		}
+	}
+}
+
+// content
+#content {
+	article {
+		margin-bottom: 20px;
+		line-height: 1.5;
+	}
+	.entry-meta {
+		color: #aaa;
+		font-size: 15px;
+	}
+	.entry-title a {
+		color: inherit;
+	}
+}

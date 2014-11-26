@@ -26,11 +26,11 @@
 	// 当前页menu
 	function makeMenuActive() {
 		var header_menu = tw.selectorAll('#header_menu')[0],
-			posi = header_menu.getAttribute('data-posi'),
+			loc = header_menu.getAttribute('data-loc'),
 			menu_li, i;
 
 		for (i = 0; menu_li = header_menu.children[i]; i++) {
-			if (tw.getText(menu_li).toLowerCase() === posi) {
+			if (tw.getText(menu_li).toLowerCase() === loc) {
 				menu_li.className = 'active';
 				break;
 			}
