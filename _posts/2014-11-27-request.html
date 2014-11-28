@@ -1,0 +1,16 @@
+---
+layout: default
+title: ajax请求
+---
+
+<p>
+	高版本的浏览器是支持ajax上传，以前的文件上传大多是通过表单的提交，或者是用flash插件。好的，现在我们来看看表单如何通过HttpRequest对象提交的。
+</p>
+
+<pre>
+	<code>
+		var xhr = new HttpRequest();
+		xhr.open('POST', url, true);
+		xhr.send();
+	</code>
+</pre>
