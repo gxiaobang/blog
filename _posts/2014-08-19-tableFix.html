@@ -1,15 +1,25 @@
 ---
 layout: default
-title: 样式化表格
+title: 表格固定
 ---
 
 <p>
-	在公司做的一个表格小插件，跟大家分享。
+	表格固定首尾，固定前面几个列，在生产环境下挺实用的。做成了一个插件的形式。使用如下：
 </p>
 
-<div class="fz-wrap">
-	<div class="fz-scroll">
-		<table class="fz-table" id="fzTable" data-fz-column="5">
+<pre>
+	<code>
+	引用两个文件
+		tableFix.css
+		tableFix.js
+
+	new TableFix(elem);
+	</code>
+</pre>
+
+<div class="table-fix">
+	<div class="table-fix-scroll">
+		<table class="table-fix-main" id="table_fix" data-fix-column="5">
 			<thead>
 				<tr>
 					<td>序号</td>
@@ -58,14 +68,11 @@ title: 样式化表格
 			</tbody>		
 		</table>
 	</div>
-	<!-- <div class="fz-column">
-	</div>
-	<div class="fz-head">
-	</div> -->
 </div>
-<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/fzTable.css">
-<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/fzTable.js"></script>
+
+{% include link.html param="tableFix" %}
+{% include script.html param="tableFix" %}
 <script type="text/javascript">
 // 调用
-new FzTable('#fzTable');
+new TableFix('#table_fix');
 </script>

@@ -1,10 +1,10 @@
 /**
- * FzTable表格固定
+ * TableFix表格固定
  * author: bang
  * date: 2014-11-4
  */
 ;(function(global, undefined) {
-var FzTable,
+var TableFix,
 	// 获取element
 	getElem,
 	hasExist,
@@ -43,17 +43,17 @@ removeEvent = function(elem, eventType, fn) {
 		elem.detachEvent('on' + eventType, fn);
 	}
 };
-// FzTable
-FzTable = function() {
+// TableFix
+TableFix = function() {
 	this.init.apply(this, arguments);
 };
-FzTable.prototype = {
+TableFix.prototype = {
 	init: function(elem) {
 		this.elem = getElem(elem)[0];
 		this.fzScroll = this.elem.parentNode;
 		this.fzWrap = this.fzScroll.parentNode;
-		this.elem.setAttribute('data-fz-render', true);
-		this.fzColumnNum = this.elem.getAttribute('data-fz-column');
+		this.elem.setAttribute('data-fix-render', true);
+		this.fzColumnNum = this.elem.getAttribute('data-fix-column');
 		this.hasFzColumn = this.fzColumnNum > 0;
 		this.makeHead();
 		this.setHeadBox();
@@ -67,21 +67,21 @@ FzTable.prototype = {
 	},
 	// 制作head
 	makeHead: function() {
-		var fzHead = getElem('.fz-head', this.fzWrap)[0],
+		var fzHead = getElem('.table-fix-header', this.fzWrap)[0],
 			i, j, row, cell, newRow, newCell;
 		if (!fzHead) {
 			fzHead = document.createElement('div');
-			fzHead.className = 'fz-head';
+			fzHead.className = 'table-fix-header';
 			this.fzWrap.appendChild(fzHead);
 		}
 		fzHead.innerHTML = '';
 		// 复制tHead
 		for (i = 0; row = this.elem.tHead.rows[i]; i++) {
 			newRow = document.createElement('div');
-			newRow.className = 'fz-head-row';
+			newRow.className = 'table-fix-row';
 			for (j = 0; cell = row.cells[j]; j++) {
 				newCell = document.createElement('div');
-				newCell.className = 'fz-head-cell';
+				newCell.className = 'table-fix-cell';
 				newCell.innerHTML = cell.innerHTML;
 				newRow.appendChild(newCell);
 			}
@@ -92,10 +92,10 @@ FzTable.prototype = {
 	// 制作column
 	makeColumn: function() {
 		var _this = this,
-			fzColumn = getElem('.fz-column', this.fzWrap)[0];
+			fzColumn = getElem('.table-fix-column', this.fzWrap)[0];
 		if (!fzColumn) {
 			fzColumn = document.createElement('div');
-			fzColumn.className = 'fz-column';
+			fzColumn.className = 'table-fix-column';
 			this.fzWrap.insertBefore(fzColumn, this.fzHead);
 
 			// 滚轮事件
@@ -141,7 +141,7 @@ FzTable.prototype = {
 					cell.style.left = paddingLeft + 'px';
 					paddingLeft += cell.offsetWidth;
 					if (j == this.fzColumnNum) {
-						cell.style.borderRightColor = '#EA9629';
+						cell.className += ' table-fix-line';
 					}
 				}
 			}
@@ -192,5 +192,5 @@ FzTable.prototype = {
 		});
 	}
 };
-global.FzTable = FzTable;
+global.TableFix = TableFix;
 })(this);

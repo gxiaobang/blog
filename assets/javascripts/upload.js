@@ -11,7 +11,9 @@ var
 	// 文件上传
 	upload,
 	// 请求
-	http;
+	http,
+	// 数据格式
+	dataFormat;
 
 http = function(url, data) {
 	// 创建
@@ -42,7 +44,21 @@ http = function(url, data) {
 	// 发送
 	xhr.send(data);
 };
-
+dataFormat = function(data) {
+	var elems,
+		formData,
+		i;
+	if (data) {
+		if (data.nodeName) {
+			formData = new FormData();
+			elems = data.getElementsByTagName('input');
+			for (i = 0; i < elems.length; i++) {
+				formData.append(elems[i].name, 
+			}
+		}
+	}
+	return data;
+};
 upload = function(data) {
 	data = dataFormat(data);
 };

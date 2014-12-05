@@ -5,18 +5,19 @@
 	<title>{{ page.title }}</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	<link rel="shortcut icon" href="{{ site.baseurl }}/assets/images/web-code.png">
-	<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/main.css">
-	<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/dialog.css">
+	{% include link.html param="main" %}
+	{% include link.html param="dialog" %}
 	<!--[if lte IE 8]>
-	<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/html5shiv.min.js"></script>
+	{% include script.html param="html5shiv.min" %}
 	<![endif]-->
 	<!--[if lte IE 7]>
-	<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/Sizzle.js"></script>
+	{% include script.html param="Sizzle" %}
 	<![endif]-->
-	<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/tw-new.js"></script>
-	<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/css3Tran.js"></script>
-	<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/dialog.js"></script>
-	<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/main.js"></script>
+
+	{% include script.html param="tw-new" %}
+	{% include script.html param="css3Tran" %}
+	{% include script.html param="dialog" %}
+	{% include script.html param="main" %}
 </head>
 <body>
 	{% include header.html %}

@@ -9,8 +9,11 @@ title: ajax请求
 
 <pre>
 	<code>
-		var xhr = new HttpRequest();
+		var xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
-		xhr.send();
+		xhr.onload = function() {
+			console.log(this.reponseText);
+		};
+		xhr.send(data);
 	</code>
 </pre>
