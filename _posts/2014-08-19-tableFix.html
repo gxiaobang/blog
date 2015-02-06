@@ -7,12 +7,13 @@ title: 表格固定
 	表格固定首尾，固定前面几个列，在生产环境下挺实用的。做成了一个插件的形式。使用如下：
 </p>
 
-<pre>
-	<code>
-	引用两个文件
-		tableFix.css
-		tableFix.js
-
+<p>
+	需要在页面引用两个文件
+		1. tableFix.css
+		2. tableFix.js
+</p>
+<pre class="language-javascript">
+	<code class="language-javascript">
 	new TableFix(elem);
 	</code>
 </pre>
@@ -69,10 +70,9 @@ title: 表格固定
 		</table>
 	</div>
 </div>
-
-{% include link.html param="tableFix" %}
-{% include script.html param="tableFix" %}
 <script type="text/javascript">
-// 调用
-new TableFix('#table_fix');
+require(['tableFix'], function(TableFix) {
+	// 执行插件
+	new TableFix('#table_fix');
+});
 </script>

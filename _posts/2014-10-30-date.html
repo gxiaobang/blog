@@ -10,16 +10,16 @@ title: 日期对象
 <p>
 	普通的日期直接返回什么？
 </p>
-<pre>
-	<code>
+<pre class="language-javascript">
+	<code class="language-javascript">
 	(new Date()).toString();	// "Thu Oct 30 2014 10:17:20 GMT+0800 (中国标准时间)"
 	</code>
 </pre>
 <p>
 	很显然并不是我们想要的。如果单纯的用字符截取也挺麻烦的，还有另外一种方式，就是通过分别获取年月日时分秒。
 </p>
-<pre>
-	<code>
+<pre class="language-javascript">
+	<code class="language-javascript">
 	var date = new Date();
 	var year = date.getFullYear(),		// yyyy 年
 		month = date.getMonth(),	// MM 月
@@ -34,8 +34,8 @@ title: 日期对象
 <p>
 	细心的同学应该注意到了，还有两个问题要处理，(一) 月份是从0开始，需要加上1; (二) 除了年其它获取到的数字，如果刚好是个位数，前面需要补0;
 </p>
-<pre>
-	<code>
+<pre class="language-javascript">
+	<code class="language-javascript">
 	// 补0
 	var toDigit = function(num) {
 		return num > 9 ? num : '0' + num;
@@ -55,8 +55,8 @@ title: 日期对象
 <p>
 	现在问题已经解决了一半，假如项目实然想改变日期显示格式，不需要时分秒或者想用“年月日”来代替'-'。在各种需求下，请看以下终极版本。
 </p>
-<pre>
-	<code>
+<pre class="language-javascript">
+	<code class="language-javascript">
 	// 有两个参数，第一是日期格式，第二个是可选参数日期对象
 	function dateFormat(format, date) {
 		date = date || new Date;

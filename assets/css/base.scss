@@ -1,0 +1,120 @@
+@charset "utf-8";
+
+
+$font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$navbar-height: 36px !default;
+
+$navbar-bg: rgb(255, 255, 255);
+$navbar-border: 1px solid #ccc;
+$navbar-active-color: #99CCFF;
+
+$prefix-list: (-webkit-, -moz-, -ms-, -o-, "");
+
+/* reset */
+html, body, ul {
+	margin: 0;
+	padding: 0;
+}
+ul li {
+	list-style: none;
+}
+body {
+	font-family: $font-family;
+	padding-top: $navbar-height + 6;
+}
+a {
+
+}
+/* end reset */
+
+
+/* mixin */
+@mixin prefix( $property, $value ) {
+	@each $pre in $prefix-list {
+		#{$pre}#{$property}: $value;
+	}
+}
+@mixin opacity( $value ) {
+	opacity: $value;
+	filter: alpha(opacity=#{$value * 100});
+}
+/* end mixin */
+
+.container {
+	width: 90%;
+	margin: 0 auto;
+	// @include prefix(transition, 2s);
+}
+
+/* 清浮动 */
+%clearfix {
+	zoom: 1;
+	&:after {
+		content: "";
+		display: block;
+		height: 0;
+		clear: both;
+	}
+}
+/* end 清浮动 */
+
+/* navbar */
+.navbar {
+	position: fixed;
+	left: 0;
+	top: 0;
+
+	width: 100%;
+	border-bottom: $navbar-border;
+	background: $navbar-bg;
+
+	.navbar-nav {
+		white-space: nowrap;
+		li {
+			position: relative;
+			display: inline;
+			margin-left: 10px;
+			line-height: $navbar-height;
+			// @extend %clearfix;
+
+			&:after {
+				content: "";
+				position: absolute;
+				left: 50%;
+				right: 50%;
+				bottom: -4px;
+				height: 3px;
+				display: block;
+				background: $navbar-active-color;
+				@include opacity(1);
+				/* 持续时间 动画方式 延时 */
+				@include prefix(transition, 0.2s ease-in 0s);
+			}
+			a {
+				/* 持续时间 动画方式 延时 */
+				@include prefix(transition, 0.2s ease-in 0s);
+			}
+			&:hover, &.active {
+				& a {
+					color: $navbar-active-color;
+				}
+				&:after {
+					left: 0;
+					right: 0;
+					// opacity: 1;
+					@include opacity(1);
+				}
+			}
+
+			a {
+				font-size: 24px;
+				text-decoration: none;
+				text-transform: uppercase;
+				color: #aaa;
+			}
+		}
+	}
+
+	@include prefix(box-shadow, (0 0 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.2) inset));
+}
+/* end navbar */

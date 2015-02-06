@@ -7,8 +7,8 @@ title: HTML弹窗, 咱们不用alert
 	传统的alert可以弹出浏览器窗口显示提示信息，开发人员用来调试（现在用得很少了，有console）。每个浏览器的弹窗各不相同，要想更改弹窗的外观，惟有用html来实现。
 </p>
 
-<pre>
-	<code>
+<pre class="language-javascript">
+	<code class="language-javascript">
 	/**
 	 * new Dialog(options);
 	 * options配置属性
@@ -45,8 +45,8 @@ btnOpen.onclick = function() {
 		width: dialog_width.value, 
 		height: dialog_height.value,
 		btns: [
-			{value: '确定', clk: function() { console.log(this.innerHTML); }},
-			{value: '取消', clk: function() { console.log(this.innerHTML); }}
+			{text: '确定', handler: function() { console.log(this.innerHTML); }},
+			{text: '取消', handler: function() { console.log(this.innerHTML); }}
 		]
 	});
 };

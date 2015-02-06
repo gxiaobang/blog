@@ -1,0 +1,136 @@
+---
+layout: default
+title: js面对对象
+---
+
+<p>
+	javascript是弱面对对象语言，实现面对对象的方式跟其它语言完全不一样，一般实现是需要class关键字定义。
+</p>
+
+<!-- 摘要 -->
+<p>
+	可以说JavaScript的面对对象并不明显，用过其它语言的人就知道，定义一个类是有一个关键字class或其它的，但是JavaScript用的是构造函数，说白了所谓的类就内部有定义方法的函数。
+</p>
+<pre class="language-javascript">
+	<code class="language-javascript">
+	// 构造函数
+	function Person(name) {
+		this.name = name;
+	}
+	Person.prototype.sayName = function() {
+		return this.name;
+	};
+	var me = new Person('bang');
+	me.sayName();	// 返回 bang
+	</code>
+</pre>
+<p>
+	我们现在来看一下ECMAScipt6新添加的内容，其中class可以实现真正的面对对象。
+</p>
+<pre class="language-javascript">
+	<code class="language-javascript">
+	// 定义类
+	class Point1 {
+	    // 构造函数
+	    constructor(x, y) {
+	        this.x = x;
+	        this.y = y;
+	    }
+	    // method
+	    print1() {
+	        return 'x: ' + this.x + ', y: ' + this.y;
+	    }
+	}
+	// 继承
+	class Point2 extends Point1 {
+	    constructor(x, y, z) {
+	        super(x, y);
+	        this.z = z;
+	    }
+	    print2() {
+	        return 'x: ' + this.x + ', y: ' + this.y + ', z:' + this.z;
+	    }
+	}
+
+	var p1 = new Point1(1, 2);
+	var p2 = new Point2(1, 2, 3);
+
+	p1.print1();    // x: 1, y: 2
+	p2.print1();    // x: 1, y: 2
+	p2.print2();    // x: 1, y: 2, z: 3
+	</code>
+</pre>
+
+<p>
+	但是现在的浏览器普遍未支持，预计还要等一段时间。用ES5语法简单封装(Klass)，定义class也是有模有样的。
+</p>
+<pre class="language-javascript">
+	<code class="language-javascript">
+	// 为目标对象赋值
+	function assign() {
+	    var args = arguments,
+	        result;
+	    if (Object.assign) {
+	        result = Object.assign.apply(this, args);
+	    }
+	    else {
+	        result = {};
+	        for (var i = 0; arg = args[i]; i++) {
+	            for (var key in arg) {
+	                if (arg.hasOwnProperty(key)) {
+	                    result[key] = arg[key];
+	                }
+	            }
+	        }
+	    }
+	    return result;
+	}
+	// 声明类
+	function Klass(options, parent) {
+	    var Klass;
+	    
+	    // 父类
+	    if (parent) {
+	        options = assign(parent.prototype, options);
+	        options.parent = function() {
+	            parent.prototype.construct.apply(this, arguments);
+	        };
+	    }
+
+	    Klass = options.construct;
+	    Klass.prototype = options;
+	    // 修正实例指向
+	    Klass.prototype.constructor = Klass;
+	    return Klass;
+	}
+	var Point1 = Klass({
+	    // 构造函数
+	    construct: function(x, y) {
+	        this.x = x;
+	        this.y = y;
+	    },
+	    print1: function() {
+	        return 'x: ' + this.x + ', y: ' + this.y;
+	    }
+	});
+	var Point2 = Klass({
+	    construct: function(x, y, z) {
+	        this.parent(x, y);
+	        this.z = z;
+	    },
+	    print2: function() {
+	        return 'x: ' + this.x + ', y: ' + this.y + ', z:' + this.z;
+	    }
+	}, Point1);
+
+	var p1 = new Point1(1, 2);
+	var p2 = new Point2(1, 2, 3);
+
+	p1.print1();    // x: 1, y: 2
+	p2.print1();    // x: 1, y: 2
+	p2.print2();    // x: 1, y: 2, z: 3
+	</code>
+</pre>
+<p>
+	结语：完！
+</p>

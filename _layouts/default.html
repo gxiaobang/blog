@@ -5,43 +5,29 @@
 	<title>{{ page.title }}</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	<link rel="shortcut icon" href="{{ site.baseurl }}/assets/images/web-code.png">
-	{% include link.html param="main" %}
-	{% include link.html param="dialog" %}
-	<!--[if lte IE 8]>
-	{% include script.html param="html5shiv.min" %}
-	<![endif]-->
-	<!--[if lte IE 7]>
-	{% include script.html param="Sizzle" %}
-	<![endif]-->
 
-	{% include script.html param="tw-new" %}
-	{% include script.html param="css3Tran" %}
-	{% include script.html param="dialog" %}
-	{% include script.html param="main" %}
+	<link rel="stylesheet" href="{{ site.baseurl }}/dist/css/base.css">
+	<link rel="stylesheet" href="{{ site.baseurl }}/assets/modules/highlight/default.css">
+	<script type="text/javascript" src="{{ site.baseurl }}/assets/scripts/require.js"></script>
+	<script type="text/javascript">
+	// 配置
+	require.config({
+		baseUrl: '{{ site.baseurl }}/assets/scripts/'
+	});
+	// 加载main.js
+	require(['main', '../modules/highlight/highlight'], function(main, hljs) {
+		// console.log( hljs );
+		hljs.highlightBlock( document.querySelectorAll('pre code')[0] );
+	});
+	</script>
 </head>
 <body>
 	{% include header.html %}
-	<div id="main">
-		{{ content }}
-	</div>
-	{% include footer.html %}
-	<div id="totop" style="display: none">
-		<a href="javascript:void(0);" title="返回顶部"></a>
-	</div>
-	<div class="overlay" style="display: none;">
-		<div class="dialog">
-			<header class="dialog-header">
-				<h3>信息</h3>
-				<button class="dialog-close">x</button>
-			</header>
-			<div class="dialog-content">
-				<div class="dialog-info">正在加载……</div>
-				<div class="dialog-btns">
-					<button class="dialog-confirm">确 定</button>
-					<!-- <button>取消</button> -->
-				</div>
-			</div>
+	<div id="page">
+		<div class="container">
+			{{ content }}
 		</div>
 	</div>
+	{% include footer.html %}
 </body>
 </html>

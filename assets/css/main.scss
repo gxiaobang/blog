@@ -1,0 +1,279 @@
+@charset "utf-8";
+// 变量
+$color-light: #999;
+$font-family: "微软雅黑",Helvetica,"Heiti SC",sans-serif;
+// 前景色
+$fg-main: #636365;
+// 背景色
+$bg-header: rgba(255, 255, 255, .9);
+$bg-main: #F7F7F7;
+$bg-footer: #333;
+
+// 路径
+@function font-url($file) {
+	@return url('../../fonts/#{$file}');
+}
+@function image-url($file) {
+	@return url('../../images/#{$file}');
+}
+// 字体
+@mixin font-face($name) {
+	@font-face {
+		font-family: $name;
+		src: font-url('octicons.eot');
+		src: font-url('octicons.eot?#iefix') format('embedded-opentype'),
+			font-url('octicons.woff') format('woff'),
+			font-url('octicons.ttf') format('truetype'),
+			font-url('octicons.svg#svgFontName') format('svg');
+	}
+}
+// 需要加前缀的css3属性
+@mixin prefix($property, $value) {
+	-webkit-#{$property}: $value;
+	-moz-#{$property}: $value;
+	-ms-#{$property}: $value;
+	#{$property}: $value;
+}
+// margin padding : 0
+@mixin mp0 {
+	margin: 0;
+	padding: 0;
+}
+// 菜单menu hover active
+@mixin active-link {
+	& a {
+		color: #1FAEFF;
+	}
+	&:after {
+		left: 0;
+		right: 0;
+		opacity: 1;
+	}
+}
+// 超链接伪类样式
+@mixin link-pseudo {
+	&:active, &:visited, &:focus {
+		color: inherit;
+	}
+}
+@mixin position($type: absolute, $dirs: ()) {
+	position: $type;
+	@each $property, $value in $dirs {
+		#{$property}: $value;
+	}
+}
+@mixin box-shadow($range: 6px, $color: rgba(204, 204, 204, .75)) {
+	@include prefix(box-shadow, 0 0 #{$range} #{$color});
+}
+@mixin opacity($value) {
+	opacity: $value;
+	filter: alpha(opacity=#{$value * 100});
+}
+@include font-face('octicons');
+
+/* reset */
+html, body, ul, h2, h3, h4, p {
+	@include mp0;
+}
+ul li {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+	@include link-pseudo;
+}
+/* end reset */
+
+body {
+	color: $fg-main;
+	background: $bg-main;
+	font-family: $font-family;
+}
+
+/* header */
+#header {
+	@include position(fixed, (left: 0, top: 0));
+	width: 100%;
+	background: $bg-header;
+	border-bottom: 1px solid #ccc;
+	@include box-shadow();
+	z-index: 99;
+	.header-wrap {
+		width: 90%;
+		margin: 0 auto;
+	}
+	.header-menu {
+		white-space: nowrap;
+		li {
+			position: relative;
+			display: inline;
+			margin-right: 10px;
+			text-transform: uppercase;
+			font-size: 22px;
+			line-height: 40px;
+
+			&:after {
+				content: "";
+				@include position(absolute, (left: 50%, right: 50%, bottom: -4px));
+				display: block;
+				height: 3px;
+				background: #1FAEFF;
+				/* 持续时间 动画方式 延时 */
+				@include prefix(transition, 0.2s ease-in 0s);
+			}
+			&:hover {
+				@include active-link;
+			}
+			&.active {
+				@include active-link;
+			}
+			a {
+				color: $color-light;
+				/* 持续时间 动画方式 延时 */
+				@include prefix(transition, 0.2s ease-in 0s);
+			}
+		}
+	}
+}
+/* end header */
+
+/* main */
+#main {
+	width: 80%;
+	margin: 50px auto 20px;
+}
+
+.row-fluid {
+	.col-fluid {
+		line-height: 1.5;
+		padding: 6px;
+		float: left;
+		border: 1px solid #ccc;
+
+		p {
+			line-height: 1.7;
+		}
+		.entry-title a {
+			color: inherit;
+		}
+		.entry-meta {
+			color: #aaa;
+			font-size: 15px;
+		}
+		.entry-more {
+			color: #4183C4;
+			transition: all .2s;
+		}
+		.entry-footer {
+			margin: 4px 6px;
+			text-align: right;
+		}
+		.entry-more:hover {
+			margin-left: .5em;
+			color: #1FAEFF;
+			text-decoration: underline;
+		}
+		.entry-summary {
+			height: 200px;
+		}
+	}
+	// .clearfix();
+}
+/* end main */
+
+
+/* footer */
+#footer {
+	background: $bg-footer;
+	color: #ccc;
+	.footer-wrap {
+		width: 86%;
+		height: 46px;
+		overflow: hidden;
+		margin: 0 auto;
+		line-height: 46px;
+		text-align: center;
+		a {
+			color: inherit;
+		}
+	}
+}
+/* end footer */
+
+/* font-family */
+.octicon-mark-github {
+	font-family: octicons;
+	transition: color .2s;
+}
+.octicon-mark-github:hover {
+	color: #4183c4;
+}
+.octicon-mark-github:before {
+	content: "\f00a";
+	font-size: 30px;
+}
+/* end font-family */
+
+/* totop */
+#totop {
+	position: fixed;
+	right: 2%;
+	bottom: 50px;
+	cursor: pointer;
+	z-index: 99;
+
+	@include prefix(transition, .2s);
+	a {
+		display: block;
+		width: 50px;
+		height: 50px;
+		background: image-url('scrollup.png') no-repeat center;
+	}
+}
+.totop-hide {
+	// opacity: 0;
+	// transform: scale(1.6);
+	/*display: none;*/
+
+	@include opacity(0);
+	@include prefix(transform, scale(1.6));
+}
+.totop-show {
+	display: block;
+	@include opacity(1);
+	@include prefix(transform, scale(1));
+}
+/* end totop */
+
+/* 通用 */
+// 清浮动
+.clearfix {
+	zoom: 1;
+	&:after {
+		content: "";
+		display: block;
+		height: 0;
+		clear: both;
+	}
+}
+/* end 通用 */
+
+/* 响应式 */
+/* @media (min-width: 700px) {
+	.row-fluid {
+		.col-fluid {
+			width: 40%;
+			margin: 2%;
+		}
+	}
+}
+
+@media (max-width: 700px) {
+	.row-fluid {
+		.col-fluid {
+			width: 30%;
+			margin: 1%;
+		}
+	}
+} */
+/* end 响应式 */
