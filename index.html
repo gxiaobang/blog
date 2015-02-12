@@ -1,28 +1,26 @@
 ---
 layout: default
-title: 热爱生活 | 关注用户体验
+title: 前端 | 可视化开发 | 关注用户体验
 loc: home
 ---
 
 <div id="page">
-	<div class="row-fluid clearfix">
-		{% for post in site.posts %}
-				<article>
-					<header>
-						<h3 class="entry-title">
-							<a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-						</h3>
-						<div class="entry-meta">
-							<time class="entry-date">{{ post.date | date_to_string }}</time>
-						</div>
-					</header>
-					<div class="entry-summary">
-						{{ post.excerpt }}
+	{% for post in site.posts %}
+			<article>
+				<header>
+					<h3 class="entry-title">
+						<a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+					</h3>
+					<div class="entry-meta">
+						<time class="entry-date">{{ post.date | date_to_string }}</time>
 					</div>
-					<footer class="entry-footer">
-						<a href="{{ site.baseurl }}{{ post.url }}" class="entry-more">阅读全文 »</a>
-					</footer>
-				</article>
-		{% endfor %}
-	</div>
+				</header>
+				<div class="entry-summary">
+					{{ post.excerpt }}
+				</div>
+				<footer class="entry-footer">
+					<a href="{{ site.baseurl }}{{ post.url }}" class="entry-more">阅读全文 »</a>
+				</footer>
+			</article>
+	{% endfor %}
 </div>

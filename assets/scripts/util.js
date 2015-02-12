@@ -13,32 +13,167 @@
 		global.Util = factory();
 	}
 })(this, function() {
-	var Util = {};
+	"use strict";
+	var Util = {
+		_init: function() {
 
-	Util.all = function(id, context) {
+		},
+		version: 1.0
+	},
+		TOSTR = Object.prototype.toString;
+
+	// 数据类型检测
+	function typeOf(obj) {
+		if (obj === null) {
+			return 'Null';
+		}
+		else {
+			return TOSTR.call(obj).substring(8).replace(']', '');
+		}
+	}
+
+	// 选择器
+	function select(id, context) {
 		context = context || document;
 		return context.querySelectorAll(id);
-	};
+	}
+	Util.select = select;
 
-	Util.each = function(arr, fn) {
-		var i = 0;
-		for (;i < arr.length; i++) {
-			fn && fn.call(arr[i], i);
+	// 样式
+	function setStyle(el, prop, val) {
+		if (typeOf(prop) === 'String' && typeOf(val) === 'String') {
+			el.style[prop] = val;
 		}
-	};
+		else {
+			for (var name in prop) {
+				el.style[name] = props[name];
+			}
+		}
+	}
+	function getStyle(el, prop) {
 
+	}
+	Util.setStyle = setStyle;
+	Util.getStyle = getStyle;
+
+	// dom
+	// html字符转成dom节点
+	function parseHTML(html) {
+		var range = document.createRange();
+		range.selectNodeContents(document.body);
+		parseHTML = function(html) {
+			return range.createContextualFragment(html);
+		};
+		return parseHTML(html);
+	}
+	function insertHTML(el, where, html) {
+		if (el.insertAdjacentHTML) {
+			insertHTML = function(el, where, html) {
+				return el.insertAdjacentHTML(where, html);
+			};
+		}
+		else {
+			insertHTML = function(el, where, html) {
+				var elem = parseHTML(html);
+				switch (where) {
+					case 'beforebegin':
+						el.parentNode.insertBefore(elem, el);
+						break;
+					case 'beforeend':
+						if (el.firstChild) {
+							el.insertBefore(elem, firstChild);
+						}
+						else {
+							el.appendChild(elem);
+						}
+						break;
+					case 'afterbegin':
+						el.appendChild(elem);
+						break;
+					case 'afterend':
+						if (el.nextSibling) {
+							el.parentNode.insertBefore(elem, el.nextSibling);
+						}
+						else {
+							el.parentNode.appendChild(elem);
+						}
+						break;
+				}
+			};
+		}
+		insertHTML(el, where, html);
+	}
+	function getText(elem) {
+		return elem.textContent || elem.innerText;
+	}
+
+	// 添加事件
+	function addEvent(el, type, fn) {
+		el.addEventListener(type, fn ,false);
+	}
+	/**/
+	// 移除事件
+	function removeEvent() {
+		el.removeEventListener(type, fn);
+	}
+	// dom加载
+	function domReady(fn) {
+		var fns = [];
+
+		function isReady() {
+			return /complete/.test(document.readyState);
+		}
+		function handler() {
+			for (var i = 0; i < fns.length; i++) {
+				fns();
+			}
+			fns = null;
+			removeEvent(document, 'DOMContentLoaded', handler);
+			removeEvent(window, 'load', handler);
+		}
+
+		if (!isReady()) {
+			addEvent(document, 'DOMContentLoaded', handler);
+			addEvent(window, 'load', handler);
+		}
+		// 重写domReady
+		domReady = function(fn) {
+			if (!isReady()) {
+				fns.push(fn);
+			}
+			else {
+				fn && fn();
+			}
+		};
+		domReady(fn);
+	}
 	// event 模块
-	Util.addEvent = function() {
-
+	Util.addEvent = addEvent;
+	Util.removeEvent = removeEvent;
+	Util.ready = function(fn) {
+		domReady(fn);
 	};
-	Util.removeEvent = function() {
 
-	};
+	// window大小
+	function wHeight() {
+		var h = window.innerHeight || document.documentElement.clientHeight;
+		return h;
+	}
+	function wWidth() {
+		var w = window.innerWidth || document.documentElement.clientWidth;
+		return w;
+	}
+
+	Util.wHeight = wHeight;
+	Util.wWidth = wWidth;
+	
+
 
 	// http请求
-	Util.http = function() {
+	function http() {
 
-	};
+	}
+	Util.http = http;
 
 	// 格式 [obj: {}]
 	var _cache = [];
@@ -113,8 +248,8 @@
 		}
 	}
 	if (!Array.isArray) {
-		Array.isArray = function() {
-
+		Array.isArray = function(obj) {
+			return typeOf(obj) === 'Array';
 		};
 	}
 	if (!String.prototype.trim) {
@@ -128,5 +263,9 @@
 
 		};
 	}
+	if (!Function.prototype.bind) {
+
+	}
+	window.Util = Util;
 	return Util;
 });

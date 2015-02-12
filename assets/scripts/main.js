@@ -10,30 +10,59 @@ define(['util'], function(Util) {
 
 	});*/
 	// console.log(Util);
-	var pageHeader = Util.all('#header')[0],
-		navbarNav = Util.all('ul', pageHeader)[0],
-		navbarList = Util.all('li', navbarNav);
+	/*var dom = Util.require('dom'),
+			css = Util.require('css'),
+			http = Util.require('http'),
+			_event = Util.require('event');
 
-	var loc = location.pathname.split(/\/+/)[1],
-			now = 0;
+	_event.bind();
+	_event.unbind();*/
 
-	// console.log( location.pathname );
-	switch (loc) {
-		case '':
-		case 'index':
-			now = 0;
-			break;
-		case 'article':
-			now = 1;
-			break;
-		case 'about':
-			now = 2;
-			break;
-		case 'contact':
-			now = 3;
-			break;
+	// 导航
+	function nav() {
+		var lis = Util.select('#header ul li'),
+				path = location.pathname.split(/\/+/)[1],
+				now;
+
+		switch (path) {
+			case '':
+			case 'index':
+				now = 0;
+				break;
+			case 'article':
+				now = 1;
+				break;
+			case 'about':
+				now = 2;
+				break;
+			case 'contact':
+				now = 3;
+				break;
+			default:
+				now = 1;
+		}
+		lis[now].className = 'active';
 	}
-	navbarList[now].className = 'active';
+	// 定位footer
+	function fixFooter() {
+		var footer = Util.select('#footer')[0];
+
+		function _fix() {
+			footer.className = '';
+			var bottom = Util.wHeight() - footer.offsetTop - footer.offsetHeight;
+			if (bottom > 0) {
+				// Util.addClass(footer, 'fix');
+				footer.className = 'fix';
+			}
+		}
+		_fix();
+		Util.addEvent(window, 'resize', _fix);
+	}
+
+	Util.ready(function() {
+		nav();
+		fixFooter();
+	});
 });
 
 /*;(function(global) {

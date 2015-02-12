@@ -1,3 +1,6 @@
 ﻿# 工作目录
 baseurl: /blog
-encoding: utf-8
+# markdown配置
+markdown: kramdown
+kramdown:
+    input: GFM

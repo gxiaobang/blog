@@ -7,6 +7,7 @@ $navbar-height: 36px !default;
 $navbar-bg: rgb(255, 255, 255);
 $navbar-border: 1px solid #ccc;
 $navbar-active-color: #99CCFF;
+$bg-color: #F7F7F7;
 
 $prefix-list: (-webkit-, -moz-, -ms-, -o-, "");
 
@@ -19,11 +20,38 @@ ul li {
 	list-style: none;
 }
 body {
-	font-family: $font-family;
 	padding-top: $navbar-height + 6;
+	font-family: $font-family;
+	background-color: $bg-color;
 }
 a {
+	// color: transparent;
+	color: #428bca;
+	text-decoration: none;
+	background-color: transparent;
+	&:active, &:hover {
+		outline: 0;
+	}
+	&:hover,
+	&:focus {
+		color: #2a6496;
+		text-decoration: underline;
+	}
+	&:focus {
 
+	}
+}
+h3 {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+h3 .small {
+	font-size: 65%;
+}
+p {
+	margin: 10px 0;
+	font-size: 16px;
+	line-height: 1.75;
 }
 /* end reset */
 
@@ -42,8 +70,8 @@ a {
 
 .container {
 	width: 90%;
+	max-width: 980px;
 	margin: 0 auto;
-	// @include prefix(transition, 2s);
 }
 
 /* 清浮动 */
@@ -109,12 +137,29 @@ a {
 			a {
 				font-size: 24px;
 				text-decoration: none;
-				text-transform: uppercase;
+				// text-transform: uppercase;
 				color: #aaa;
 			}
 		}
 	}
 
-	@include prefix(box-shadow, (0 0 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.2) inset));
+	@include prefix(box-shadow, (0 0 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.1) inset));
 }
 /* end navbar */
+
+/* footer */
+#footer {
+	width: 100%;
+	margin-top: 10px;
+	border-top: 1px solid #D9D8D8;
+	background: #F0F0F0;
+	&.fix {
+		position: absolute;
+		bottom: 0;
+	}
+}
+.footer-inner {
+	padding: 10px;
+	text-align: center;
+}
+/* end footer */

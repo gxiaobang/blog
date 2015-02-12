@@ -8,14 +8,38 @@ ul li {
   list-style: none; }
 
 body {
+  padding-top: 42px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding-top: 42px; }
+  background-color: #F7F7F7; }
+
+a {
+  color: #428bca;
+  text-decoration: none;
+  background-color: transparent; }
+  a:active, a:hover {
+    outline: 0; }
+  a:hover, a:focus {
+    color: #2a6496;
+    text-decoration: underline; }
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px; }
+
+h3 .small {
+  font-size: 65%; }
+
+p {
+  margin: 10px 0;
+  font-size: 16px;
+  line-height: 1.75; }
 
 /* end reset */
 /* mixin */
 /* end mixin */
 .container {
   width: 90%;
+  max-width: 980px;
   margin: 0 auto; }
 
 /* 清浮动 */
@@ -28,11 +52,11 @@ body {
   width: 100%;
   border-bottom: 1px solid #ccc;
   background: white;
-  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.2) inset;
-  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.2) inset;
-  -ms-box-shadow: 0 0 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.2) inset;
-  -o-box-shadow: 0 0 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.2) inset;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.2) inset; }
+  -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+  -ms-box-shadow: 0 0 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+  -o-box-shadow: 0 0 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.1) inset; }
   .navbar .navbar-nav {
     white-space: nowrap; }
     .navbar .navbar-nav li {
@@ -74,9 +98,23 @@ body {
       .navbar .navbar-nav li a {
         font-size: 24px;
         text-decoration: none;
-        text-transform: uppercase;
         color: #aaa; }
 
 /* end navbar */
+/* footer */
+#footer {
+  width: 100%;
+  margin-top: 10px;
+  border-top: 1px solid #D9D8D8;
+  background: #F0F0F0; }
+  #footer.fix {
+    position: absolute;
+    bottom: 0; }
+
+.footer-inner {
+  padding: 10px;
+  text-align: center; }
+
+/* end footer */
 
 /*# sourceMappingURL=base.css.map */

@@ -1,15 +1,16 @@
 ---
 layout: default
-title: 安装express4.x
+title: 新版本express
 ---
 
-<p>
-	今天更新了一下express版本，更新完成后输入命令express不能用了。从网上查找了资料才知道，原来express4.x，需要再安装个express-generator工具。
-</p>
+今天更新了一下express版本，更新完成后输入命令express不能用了。从网上查找了资料才知道，原来express4.x，需要再安装个express-generator工具。
 
-<p>
-	下面是安装步骤，走起。
-</p>
+# 安装express-generator
+
+```bash
+$npm install -g express
+$npm install -g express-generator
+```
 <pre class="language-bash">
 	<code class="language-bash">
 	$npm install -g express
