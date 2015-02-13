@@ -111,7 +111,6 @@
 	function addEvent(el, type, fn) {
 		el.addEventListener(type, fn ,false);
 	}
-	/**/
 	// 移除事件
 	function removeEvent() {
 		el.removeEventListener(type, fn);

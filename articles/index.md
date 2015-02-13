@@ -2,7 +2,7 @@
 layout: default
 ---
 
-## hello
+## Articles
 
 ```javascript
 var a = 1;

@@ -95,6 +95,7 @@ p {
 	width: 100%;
 	border-bottom: $navbar-border;
 	background: $navbar-bg;
+	z-index: 99;
 
 	.navbar-nav {
 		white-space: nowrap;
@@ -146,6 +147,21 @@ p {
 	@include prefix(box-shadow, (0 0 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.1) inset));
 }
 /* end navbar */
+
+/* page */
+.entry-date {
+	color: #999;
+	font-size: .95em;
+}
+.entry-more {
+	padding-left: 4px;
+	font-size: .92em;
+	color: #9999FF;
+	&:hover {
+		color: #99CCFF;
+	}
+}
+/* end page */
 
 /* footer */
 #footer {

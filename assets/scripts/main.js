@@ -21,25 +21,34 @@ define(['util'], function(Util) {
 	// 导航
 	function nav() {
 		var lis = Util.select('#header ul li'),
-				path = location.pathname.split(/\/+/)[1],
+				splits = location.pathname.split(/\/+/),
+				path,
 				now;
 
-		switch (path) {
+		// baseurl: /blog
+		if (splits[1] === 'blog') {
+			path = splits[2];
+		}
+		else {
+			path = splits[1];
+		}
+
+		switch (path.toLowerCase()) {
 			case '':
 			case 'index':
 				now = 0;
 				break;
-			case 'article':
+			case 'articles':
 				now = 1;
 				break;
 			case 'about':
 				now = 2;
 				break;
-			case 'contact':
+			case '#':
 				now = 3;
 				break;
 			default:
-				now = 1;
+				now = 3;
 		}
 		lis[now].className = 'active';
 	}
