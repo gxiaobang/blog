@@ -1,12 +1,43 @@
-/**
- * 贪吃蛇
- * author: bang
- * date: 2014-8-27
- */
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>贪吃蛇</title>
+	<style type="text/css">
+	body {
+		overflow: hidden;
+	}
+	.game {
+		width: 500px;
+		margin: auto;
+	}
+	.game-manage {
+		padding: 6px 4px;
+	}
+	.game-btns {
+		/*text-align: right;*/
+	}
+	.game-view {
+		background: #eee;
+		box-shadow: 0 0 6px #aaa;
+	}
+</style>
+</head>
+<body>
 
-;(function(global) {
-	"use strict";
-	// 游戏对象
+<div class="game">
+	<div class="game-manage">
+		<div>分数: <strong id="game_score"> 0 </strong></div>
+		<div class="game-btns">
+			<button id="btn_start">开始</button>
+			<button id="btn_pause">暂停</button>
+		</div>
+	</div>
+	<canvas id="gameView" class="game-view" width="500" height="400"></canvas>
+</div>
+
+<script>
+// 游戏对象
 var game,
 	// 清理当前帧
 	clearFrame,
@@ -34,20 +65,17 @@ rand = function(min, max) {
 
 game = {
 	// 配置
-	config: function(opt) {
+	init: function() {
 		// canvas标签
-		this.canvas = opt.canvas;
+		this.canvas = document.getElementById('gameView');
 		// 绘图环境
 		this.context = this.canvas.getContext('2d');
 		// 开始按钮
-		this.btns = opt.btns;
+		this.btns = { start: document.getElementById('btn_start'), pause: document.getElementById('btn_pause') };
 		// 分数面板
-		this.score = opt.score;
+		this.score = document.getElementById('game_score');
 		// 游戏速度，初始化为200ms
-		this.speed = opt.speed || 200;
-		this.init();
-	},
-	init: function() {
+		this.speed = 200;
 		this.initMap();
 		this.initEvent();
 	},
@@ -197,7 +225,8 @@ game = {
 				this.snake[0].r++;
 				break;
 		}
-		this.surround();
+		// this.surround();
+		this.collWall();
 		this.collision();
 	},
 	// 跟随
@@ -220,6 +249,12 @@ game = {
 		}
 		else if (this.snake[0].r >= this.R) {
 			this.snake[0].r = 0;
+		}
+	},
+	// 撞到墙
+	collWall: function() {
+		if (this.snake[0].c < 0 || this.snake[0].c >= this.C || this.snake[0].r < 0 || this.snake[0].r >= this.R) {
+			this.over();
 		}
 	},
 	// 碰撞
@@ -263,11 +298,15 @@ game = {
 	},
 	// 游戏线束
 	over: function() {
-		console.log('游戏结束');
-		new Dialog({ log: '游戏结束' });
+		console.error('游戏结束');
+		alert('游戏结束');
+		// new Dialog({ log: '游戏结束' });
 		clearTimeout(timeID);
 	}
 };
 
-global.game = game;
-})(this);
+game.init();
+</script>
+
+</body>
+</html>

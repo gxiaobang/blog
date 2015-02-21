@@ -1,5 +1,5 @@
 /**
- * Util 工具方法
+ * utils 工具方法
  * @author bang
  * @date 2015-2-6
  * @version 1.0
@@ -10,11 +10,11 @@
 		define(factory);
 	}
 	else {
-		global.Util = factory();
+		global.utils = factory();
 	}
 })(this, function() {
 	"use strict";
-	var Util = {
+	var utils = {
 		_init: function() {
 
 		},
@@ -31,13 +31,14 @@
 			return TOSTR.call(obj).substring(8).replace(']', '');
 		}
 	}
+	utils.typeOf = typeOf;
 
 	// 选择器
 	function select(id, context) {
 		context = context || document;
 		return context.querySelectorAll(id);
 	}
-	Util.select = select;
+	utils.select = select;
 
 	// 样式
 	function setStyle(el, prop, val) {
@@ -53,8 +54,8 @@
 	function getStyle(el, prop) {
 
 	}
-	Util.setStyle = setStyle;
-	Util.getStyle = getStyle;
+	utils.setStyle = setStyle;
+	utils.getStyle = getStyle;
 
 	// dom
 	// html字符转成dom节点
@@ -112,7 +113,7 @@
 		el.addEventListener(type, fn ,false);
 	}
 	// 移除事件
-	function removeEvent() {
+	function removeEvent(el, type, fn) {
 		el.removeEventListener(type, fn);
 	}
 	// dom加载
@@ -124,7 +125,7 @@
 		}
 		function handler() {
 			for (var i = 0; i < fns.length; i++) {
-				fns();
+				fns[i]();
 			}
 			fns = null;
 			removeEvent(document, 'DOMContentLoaded', handler);
@@ -147,9 +148,9 @@
 		domReady(fn);
 	}
 	// event 模块
-	Util.addEvent = addEvent;
-	Util.removeEvent = removeEvent;
-	Util.ready = function(fn) {
+	utils.addEvent = addEvent;
+	utils.removeEvent = removeEvent;
+	utils.ready = function(fn) {
 		domReady(fn);
 	};
 
@@ -163,21 +164,28 @@
 		return w;
 	}
 
-	Util.wHeight = wHeight;
-	Util.wWidth = wWidth;
+	utils.wHeight = wHeight;
+	utils.wWidth = wWidth;
 	
+	// fx
+	function fx() {
 
+	}
+	fx.default = {
+
+	};
+	utils.fx = fx;
 
 	// http请求
 	function http() {
 
 	}
-	Util.http = http;
+	utils.http = http;
 
 	// 格式 [obj: {}]
 	var _cache = [];
 	// 数据缓存
-	Util.data = {
+	utils.data = {
 		// 添加
 		add: function(obj) {
 			var item = this.getItem(obj);
@@ -265,6 +273,6 @@
 	if (!Function.prototype.bind) {
 
 	}
-	window.Util = Util;
-	return Util;
+	// window.utils = utils;
+	return utils;
 });

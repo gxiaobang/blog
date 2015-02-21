@@ -8,20 +8,14 @@
 
 	<link rel="stylesheet" href="{{ site.baseurl }}/dist/css/base.css">
 	<link rel="stylesheet" href="{{ site.baseurl }}/assets/modules/highlight/styles/hybrid.css">
-	<script type="text/javascript" src="{{ site.baseurl }}/assets/scripts/require.js"></script>
+	<script type="text/javascript" src="{{ site.baseurl }}/assets/js/require.js"></script>
 	<script type="text/javascript">
 	// 配置
 	require.config({
-		baseUrl: '{{ site.baseurl }}/assets/scripts/'
+		baseUrl: '{{ site.baseurl }}/assets/js/'
 	});
-	// 加载main.js
-	require(['main', '../modules/highlight/highlight'], function(main, hljs) {
-		var code = document.querySelectorAll('pre code'),
-				i = 0;
-		for (;i < code.length; i++) {
-			hljs.highlightBlock( code[i] );
-		}
-	});
+	// 启动app.js
+	require(['app']);
 	</script>
 </head>
 <body>

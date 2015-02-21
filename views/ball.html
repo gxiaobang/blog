@@ -1,12 +1,14 @@
----
-layout: default
-title: 运动系列
----
-
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>搬运小球</title>
+</head>
+<body>
 <p>拖动小球，然后释放</p>
-
 <canvas id="cvs" width="500" height="500"></canvas>
-<script type="text/javascript" src="{{ site.baseurl }}/assets/javascripts/tween.js"></script>
+
+<script src="{{ site.baseurl }}/assets/js/tween.js"></script>
 <script type="text/javascript">
 (function() {
 var main = tw.selectorAll('#main')[0],
@@ -129,3 +131,5 @@ tw.addEvent(cvs, tw.draggle.move, function(event) {
 update();
 })();
 </script>
+</body>
+</html>

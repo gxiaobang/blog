@@ -86,7 +86,7 @@ p {
 }
 /* end 清浮动 */
 
-/* navbar */
+/* header */
 .navbar {
 	position: fixed;
 	left: 0;
@@ -120,8 +120,15 @@ p {
 				@include prefix(transition, 0.2s ease-in 0s);
 			}
 			a {
+				font-size: 24px;
+				font-weight: bold;
+				text-decoration: none;
+				color: #aaa;
 				/* 持续时间 动画方式 延时 */
 				@include prefix(transition, 0.2s ease-in 0s);
+			}
+			a.small {
+				font-size: 20px;
 			}
 			&:hover, &.active {
 				& a {
@@ -134,19 +141,25 @@ p {
 					@include opacity(1);
 				}
 			}
-
-			a {
-				font-size: 24px;
-				text-decoration: none;
-				// text-transform: uppercase;
-				color: #aaa;
-			}
 		}
 	}
 
 	@include prefix(box-shadow, (0 0 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.1) inset));
+
+	// load
+	.loading {
+		width: 100%;
+		height: 2px;
+		.loading-length {
+			width: 0;
+			height: 2px;
+			background: #35b558;
+			background: -webkit-gradient(linear,10% 10%,100% 100%,color-stop(0.14,#35b550),color-stop(0.5,#8aca8c),color-stop(1,#2d85ca));
+			@include prefix(transition, 1s);
+		}
+	}
 }
-/* end navbar */
+/* end header */
 
 /* page */
 .entry-date {
