@@ -73,7 +73,7 @@ p {
         bottom: -4px;
         height: 3px;
         display: block;
-        background: #99CCFF;
+        background: #66CCFF;
         opacity: 1;
         filter: alpha(opacity=100);
         /* 持续时间 动画方式 延时 */
@@ -84,7 +84,6 @@ p {
         transition: 0.2s ease-in 0s; }
       .navbar .navbar-nav li a {
         font-size: 24px;
-        font-weight: bold;
         text-decoration: none;
         color: #aaa;
         /* 持续时间 动画方式 延时 */
@@ -96,7 +95,7 @@ p {
       .navbar .navbar-nav li a.small {
         font-size: 20px; }
       .navbar .navbar-nav li:hover a, .navbar .navbar-nav li.active a {
-        color: #99CCFF; }
+        color: #66CCFF; }
       .navbar .navbar-nav li:hover:after, .navbar .navbar-nav li.active:after {
         left: 0;
         right: 0;
@@ -108,8 +107,8 @@ p {
     .navbar .loading .loading-length {
       width: 0;
       height: 2px;
-      background: #35b558;
-      background: -webkit-gradient(linear, 10% 10%, 100% 100%, color-stop(0.14, #35b550), color-stop(0.5, #8aca8c), color-stop(1, #2d85ca));
+      background: #66CCFF/9;
+      background: -webkit-gradient(linear, 10% 10%, 100% 100%, color-stop(0.14, #66CCFF), color-stop(1, #6699CC));
       -webkit-transition: 1s;
       -moz-transition: 1s;
       -ms-transition: 1s;
@@ -125,9 +124,14 @@ p {
 .entry-more {
   padding-left: 4px;
   font-size: .92em;
-  color: #9999FF; }
+  color: #666699;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s; }
   .entry-more:hover {
-    color: #99CCFF; }
+    color: #6699FF; }
 
 /* end page */
 /* footer */

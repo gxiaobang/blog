@@ -1,12 +1,12 @@
 @charset "utf-8";
 
 
-$font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $navbar-height: 36px !default;
 
 $navbar-bg: rgb(255, 255, 255);
 $navbar-border: 1px solid #ccc;
-$navbar-active-color: #99CCFF;
+$navbar-active-color: #66CCFF;
 $bg-color: #F7F7F7;
 
 $prefix-list: (-webkit-, -moz-, -ms-, -o-, "");
@@ -121,7 +121,7 @@ p {
 			}
 			a {
 				font-size: 24px;
-				font-weight: bold;
+				// font-weight: bold;
 				text-decoration: none;
 				color: #aaa;
 				/* 持续时间 动画方式 延时 */
@@ -153,8 +153,8 @@ p {
 		.loading-length {
 			width: 0;
 			height: 2px;
-			background: #35b558;
-			background: -webkit-gradient(linear,10% 10%,100% 100%,color-stop(0.14,#35b550),color-stop(0.5,#8aca8c),color-stop(1,#2d85ca));
+			background: #66CCFF/9;
+			background: -webkit-gradient(linear, 10% 10%, 100% 100%, color-stop(0.14, #66CCFF), color-stop(1, #6699CC));
 			@include prefix(transition, 1s);
 		}
 	}
@@ -169,9 +169,10 @@ p {
 .entry-more {
 	padding-left: 4px;
 	font-size: .92em;
-	color: #9999FF;
+	color: #666699;
+	@include prefix(transition, .5s);
 	&:hover {
-		color: #99CCFF;
+		color: #6699FF;
 	}
 }
 /* end page */
