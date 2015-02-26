@@ -108,13 +108,24 @@
 		return elem.textContent || elem.innerText;
 	}
 
+	utils.isW3C = !!document.dispatchEvent;
 	// 添加事件
 	function addEvent(el, type, fn) {
-		el.addEventListener(type, fn ,false);
+		if (utils.isW3C) {
+			el.addEventListener(type, fn ,false);
+		}
+		else {
+			el.attachEvent('on' + type, fn);
+		}
 	}
 	// 移除事件
 	function removeEvent(el, type, fn) {
-		el.removeEventListener(type, fn);
+		if (utils.isW3C) {
+			el.removeEventListener(type, fn);
+		}
+		else {
+			el.detachEvent('on' + type, fn);
+		}
 	}
 	// dom加载
 	function domReady(fn) {

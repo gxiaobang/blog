@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>css3Tran效果展示</title>
+	<style type="text/css">
+	#box {
+		width: 100px;
+		height: 100px;
+		background: #d44027;
+	}
+	</style>
+</head>
+<body>
+	<button id="btn_start">开始</button>
+	<div id="box"></div>
+	<script src="../assets/js/tween.js"></script>
+	<script src="../assets/js/css3Tran.js"></script>
+	<script>
+	btn_start.onclick = function() {
+		css3Tran({
+			elem: box,
+			to: {
+				background: '#ffac38'
+			}
+		})
+		.then({
+			to: {
+				transform: 'rotate(1turn)'
+			}
+		})
+		.then({
+			to: {
+				background: '#d44027',
+				transform: '',
+				opacity: 1
+			}
+		})
+		.complete(function() {
+			console.log('动画完成');
+		});
+	};
+	</script>
+</body>
+</html>

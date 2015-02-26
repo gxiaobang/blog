@@ -107,8 +107,12 @@ p {
     .navbar .loading .loading-length {
       width: 0;
       height: 2px;
-      background: #66CCFF/9;
+      background: #66CCFF;
       background: -webkit-gradient(linear, 10% 10%, 100% 100%, color-stop(0.14, #66CCFF), color-stop(1, #6699CC));
+      background: -moz-gradient(linear, 10% 10%, 100% 100%, color-stop(0.14, #66CCFF), color-stop(1, #6699CC));
+      background: -ms-gradient(linear, 10% 10%, 100% 100%, color-stop(0.14, #66CCFF), color-stop(1, #6699CC));
+      background: -o-gradient(linear, 10% 10%, 100% 100%, color-stop(0.14, #66CCFF), color-stop(1, #6699CC));
+      background: gradient(linear, 10% 10%, 100% 100%, color-stop(0.14, #66CCFF), color-stop(1, #6699CC));
       -webkit-transition: 1s;
       -moz-transition: 1s;
       -ms-transition: 1s;
