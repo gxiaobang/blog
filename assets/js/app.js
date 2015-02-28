@@ -1,7 +1,7 @@
 /**
  * app.js
  */
-define(['utils', '../modules/highlight/highlight'], function(utils, hljs) {
+define(['utils', '../widget/highlight/highlight'], function(utils, hljs) {
 
 	// 导航
 	function nav() {
