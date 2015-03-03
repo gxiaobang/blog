@@ -18,22 +18,24 @@ define(['utils', '../widget/highlight/highlight'], function(utils, hljs) {
 			path = splits[1];
 		}
 
-		switch (path.toLowerCase()) {
+		switch (path = path.toLowerCase()) {
 			case '':
 			case 'index':
 				now = 0;
 				break;
-			case 'note':
+			case 'essay':
 				now = 1;
 				break;
 			case 'about':
 				now = 2;
 				break;
-			case '#':
-				now = 3;
-				break;
 			default:
-				now = 3;
+				if (path.charAt(0) === '#') {
+					now = 0;
+				}
+				else {
+					now = 3;
+				}
 		}
 		lis[now].className = 'active';
 	}

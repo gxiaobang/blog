@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 动画特效
+title: 基于定时器实现的动画
 ---
 
 随着互联网的普及，用户体验越来越重要,传统的数据内容呈现方式已经无法满足。优秀的前端设计能给用户带来视觉上冲击。
@@ -100,7 +100,7 @@ function animate(opt) {
     from[prop] = parseFloat(getStyle(obj, prop));
   }
   timer = setInterval(function() {
-    elapsed = +new - begin;
+    elapsed = +new Date - begin;
     for (var prop in opt.to) {
       // 缓动公式调用
       result = Tween.Quad.easeIn(elapsed, opt.from[prop], opt.to[prop] - opt.from[prop], duration);
