@@ -23,18 +23,21 @@ define(['utils', '../widget/highlight/highlight'], function(utils, hljs) {
 			case 'index':
 				now = 0;
 				break;
-			case 'essay':
+			case 'work':
 				now = 1;
 				break;
 			case 'about':
 				now = 2;
+				break;
+			case 'contact':
+				now = 3;
 				break;
 			default:
 				if (path.charAt(0) === '#') {
 					now = 0;
 				}
 				else {
-					now = 3;
+					now = 4;
 				}
 		}
 		lis[now].className = 'active';

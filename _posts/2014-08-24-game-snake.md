@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 游戏系列之贪吃蛇
+title: 贪吃蛇
 ---
 
 贪吃蛇的实现思路并不复杂，之前做过用dom版本的，然后canvas的出现，又做了一个canvas版本。
